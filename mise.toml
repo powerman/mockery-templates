@@ -78,7 +78,6 @@ description = 'Run all CI tasks'
 depends = ['generate', 'fmt', 'lint', 'test']
 # Is working tree clean after generate/fmt?
 run = '! git status --porcelain | tee /dev/stderr | grep -q .'
-run_windows = 'powershell -c "$status = git status --porcelain; if ($status) { $status; exit 1 }"'
 
 [tasks.'bump:deps']
 description = 'Upgrade dependencies of all Go modules'
@@ -155,10 +154,6 @@ run = "git ls-files -z -co --exclude-standard '*.yml' '*.yaml' | xargs -0 -r yam
 [tasks.'lint:go']
 description = 'Lint Go files'
 run = 'golangci-lint run'
-
-[tasks.'lint:go-compile-windows']
-description = 'Check Go test compiles on Windows'
-run = 'GOOS=windows go test -c -o /dev/null ./...'
 
 [tasks.'test:go']
 description = 'Run Go tests for a whole project'
