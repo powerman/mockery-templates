@@ -32,6 +32,7 @@ In priority order:
    call history, and a constructor delegating all methods to a real implementation
    (e.g. an in-memory store with a single method overridden to return an error).
 2. **The usage style must not provoke mistakes.**
+   Unexpected calls fail loudly by default.
    No interface names or paths duplicated in directives.
    No hand-written per-interface glue that silently goes stale:
    a hand-written `NewFakeXFrom` misses methods added later,
@@ -56,11 +57,26 @@ In priority order:
   with the stated goal of letting template developers maintain and distribute their own,
   and the data passed to templates (package `github.com/vektra/mockery/v3/template`)
   is documented as backward compatible.
-- **The first template, `gomockgen`, is API-compatible with go-mockgen v2.1.1.**
-  Existing tests migrate without changes,
-  the go-mockgen README keeps serving as documentation of the semantics,
-  and no new API has to be designed.
-  Extensions, if ever needed, must be additive.
+- **Two fake templates: a frozen go-mockgen-compatible one and an evolving own one.**
+  - `go-mockgen` is API-compatible with go-mockgen v2.1.1 and gets fixes only, no features.
+    It is the first step:
+    generation edge cases (generics, variadics, aliases, name collisions, placements)
+    are verified against real go-mockgen output
+    and on existing projects whose tests must pass unchanged.
+    It also replaces the patched fork as a stop-gap
+    and gives a migration path to anyone leaving go-mockgen.
+    It is not named `gomockgen`, which reads as gomock's mockgen, used by the same projects.
+  - `fake` is the API projects are expected to use.
+    Its first version is the go-mockgen API with breaking changes decided up front:
+    `NewFakeX()` panics on a call without a configured hook
+    (requirement 2; a non-panicking constructor can be added later if ever needed);
+    per-method fields are values, so a zero `FakeX{}` works like `NewFakeX()`;
+    per-method type names are derived from the full struct name,
+    so no prefix trimming is needed and they never clash with `go-mockgen` output;
+    `[]any` instead of `[]interface{}`.
+    Further changes are evaluated one by one and may break compatibility:
+    a project keeps its copy of a template until it updates,
+    and the update arrives as an ordinary diff with any breakage visible at compile time.
 - **Interfaces are selected in `.mockery.yml` only.**
   `//mockery:` directives are not used:
   mixing config and directives means two ways to do one thing,
@@ -85,6 +101,10 @@ In priority order:
   Tried on two projects: the config became complex,
   queue-based test cases degraded into call-counting closures,
   and one-shot overrides silently became permanent.
+- **A full copy of the built-in `matryer` template extended with a hook queue.**
+  The go-mockgen shape (a type per method holding its mutex, hooks and history)
+  differs structurally from matryer's single struct of function fields,
+  so only matryer's handling of the template data (imports, generics) is reused.
 - **gowrap as the template engine.**
   Viable: full Sprig, one `//go:generate` line per type.
   But it cannot generate into an external `_test` package
@@ -119,9 +139,14 @@ In priority order:
 - **Stale config fails loudly:** an unknown package or interface is an error.
 - **Template functions are fewer than Sprig** (e.g. no `regexReplaceAll`),
   which is mostly compensated by type-aware methods of the template data.
+- **Shared generation logic lives in two templates.**
+  A fix to it (imports, generics, name collisions) must be applied to both.
+  Mitigated by shared fixtures
+  and by behavior tests covering the common semantics for both templates.
 - **Team adoption.**
-  The go-mockgen API is niche and no more familiar to a team than a custom one,
-  but compatibility keeps existing documentation valid and avoids API design churn.
+  The go-mockgen API is niche and no more familiar to a team than a custom one.
+  `go-mockgen` keeps the go-mockgen README valid as documentation;
+  `fake` documents its semantics in this repository as differences from go-mockgen.
 
 ## References
 
