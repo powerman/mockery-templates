@@ -1,0 +1,70 @@
+# mockery generates code from interfaces listed here using templates.
+# Each placement of generated code has an anchor;
+# an interface uses one (config) or several (configs).
+log-level: warn
+formatter: goimports
+formatter-options:
+  goimports:
+    local-prefix: github.com/powerman/mockery-templates
+_anchors:
+  go-mockgen: &go-mockgen
+    template: file://go-mockgen/go-mockgen.templ
+    dir: '{{.InterfaceDirRelative}}'
+    pkgname: '{{.SrcPackageName}}'
+    filename: 'stub.{{.InterfaceFile | base}}'
+    structname: 'Mock{{.InterfaceName | firstUpper}}'
+  go-mockgen-internal-test: &go-mockgen-internal-test
+    template: file://go-mockgen/go-mockgen.templ
+    dir: '{{.InterfaceDirRelative}}'
+    pkgname: '{{.SrcPackageName}}'
+    filename: 'stub.internal_test.go'
+    structname: 'MockInternal{{.InterfaceName | firstUpper}}'
+  go-mockgen-external-test: &go-mockgen-external-test
+    template: file://go-mockgen/go-mockgen.templ
+    dir: '{{.InterfaceDirRelative}}'
+    pkgname: '{{.SrcPackageName}}_test'
+    filename: 'stub.{{.InterfaceFile | base | trimSuffix ".go"}}_test.go'
+    structname: 'Mock{{.InterfaceName | firstUpper}}'
+  go-mockgen-another-pkg: &go-mockgen-another-pkg
+    template: file://go-mockgen/go-mockgen.templ
+    dir: '{{.InterfaceDirRelative}}/gomockgentest'
+    pkgname: gomockgentest
+    filename: 'stub.{{.InterfaceFile | base}}'
+    structname: 'Mock{{.InterfaceName | firstUpper}}'
+  go-mockgen-all: &go-mockgen-all
+    - *go-mockgen
+    - *go-mockgen-internal-test
+    - *go-mockgen-external-test
+    - *go-mockgen-another-pkg
+packages:
+  github.com/powerman/mockery-templates/go-mockgen:
+    interfaces:
+      Store: {config: *go-mockgen}
+  github.com/powerman/mockery-templates/internal/fixture:
+    interfaces:
+      Repo:
+        configs: *go-mockgen-all
+      Variadic:
+        configs: *go-mockgen-all
+      NoResults:
+        configs: *go-mockgen-all
+      Collide:
+        configs: *go-mockgen-all
+      Swapper:
+        configs: *go-mockgen-all
+      ReadCloser:
+        configs: *go-mockgen-all
+      I1:
+        configs: *go-mockgen-all
+      I2:
+        configs: *go-mockgen-all
+      I3:
+        configs: *go-mockgen-all
+      I4:
+        configs: *go-mockgen-all
+      Cmp:
+        configs: *go-mockgen-all
+      Empty:
+        configs: *go-mockgen-all
+      unexported:
+        configs: [*go-mockgen, *go-mockgen-internal-test]

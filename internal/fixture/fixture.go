@@ -1,0 +1,114 @@
+// Package fixture contains interfaces covering generation edge cases of mockery templates.
+package fixture
+
+import (
+	"context"
+	"io"
+	"sync"
+
+	"github.com/powerman/mockery-templates/internal/fixture/a"
+	"github.com/powerman/mockery-templates/internal/fixture/b"
+)
+
+// Ctx is a short alias for [context.Context].
+type Ctx = context.Context
+
+// Option is a named type used by variadic parameters.
+type Option func(*int)
+
+// Repo covers parameter and result kinds.
+type Repo interface {
+	// Get has named parameters and 3 results.
+	Get(ctx Ctx, id int) (string, bool, error)
+	// Put has unnamed parameters and 1 result.
+	Put(Ctx, string) error //nolint:inamedparam // Unnamed parameters are tested.
+	// Kinds has parameters of composite kinds and no results.
+	Kinds(p *int, s []string, m map[string]int, arr [4]byte, ch <-chan int, fn func(int) error)
+	// Inline has parameters of inline struct and interface types.
+	Inline(s struct{ X int }, i interface{ Y() }) struct{ X int }
+}
+
+// AliasedRepo is an alias of an interface, it must not break generation.
+type AliasedRepo = Repo
+
+// Variadic covers variadic parameters.
+type Variadic interface {
+	// Do has a regular parameter before the variadic one.
+	Do(command string, args ...any) (any, error)
+	// Only has only a variadic parameter.
+	Only(opts ...Option) error
+}
+
+// NoResults covers methods without results.
+type NoResults interface {
+	// Fire has a parameter.
+	Fire(v int)
+	// Nothing has no parameters.
+	Nothing()
+}
+
+// Collide has parameter names which may collide with names used by generated code.
+type Collide interface {
+	// Names uses names of the receiver, locals, fields and an imported package.
+	Names( //nolint:revive // Shadowing is tested.
+		m, f, hook int, r0 error, v0 string, mutex *sync.Mutex, history []int, sync bool, i any,
+	) (r1 int, err error)
+}
+
+// Swapper uses types with the same name from different packages.
+type Swapper interface {
+	// Swap converts a.Thing to b.Thing.
+	Swap(t a.Thing) b.Thing
+}
+
+// ReadCloser embeds an interface from another package.
+type ReadCloser interface {
+	io.Reader
+	// Close closes.
+	Close() error
+}
+
+// I1 is a generic interface.
+type I1[T any] interface {
+	// M1 accepts a type parameter.
+	M1(v T)
+}
+
+// I2 is a generic interface which embeds a generic interface.
+type I2[T1, T2 any] interface {
+	I1[T1]
+	// M2 returns a type parameter.
+	M2(v T1) T2
+}
+
+// SignedIntegerConstraint is a type set constraint.
+type SignedIntegerConstraint interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64
+}
+
+// I3 is a generic interface with a named constraint.
+type I3[T SignedIntegerConstraint] interface {
+	// M3 accepts an instantiated generic interface.
+	M3(v I1[T]) int
+}
+
+// I4 is a generic interface with an inline constraint.
+type I4[T interface{ ~string }] interface {
+	// M4 accepts an instantiated generic interface.
+	M4(v I1[T]) int
+}
+
+// Cmp is a generic interface with a comparable constraint.
+type Cmp[T comparable] interface {
+	// Eq compares values.
+	Eq(a, b T) bool //nolint:revive // Shadowing is tested.
+}
+
+// Empty has no methods.
+type Empty any
+
+// unexported is not exported.
+type unexported interface {
+	// String returns a string.
+	String() string
+}
