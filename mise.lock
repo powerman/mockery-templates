@@ -176,6 +176,11 @@ url = "https://dl.google.com/go/go1.27.3.darwin-amd64.tar.gz"
 checksum = "sha256:f26081f438319757f8a1b46d7d0b2c5ec7583d4038e485e0aa725cfde7885fff"
 url = "https://dl.google.com/go/go1.27.3.windows-amd64.zip"
 
+[[tools."go:github.com/powerman/go-mockgen/v2/cmd/go-mockgen"]]
+version = "2.1.2"
+backend = "go:github.com/powerman/go-mockgen/v2/cmd/go-mockgen"
+specifiers = ["2.1.2"]
+
 [[tools."go:github.com/vektra/mockery/v3"]]
 version = "3.8.1"
 backend = "go:github.com/vektra/mockery/v3"
@@ -184,6 +189,11 @@ specifiers = ["latest"]
 [[tools."go:go.uber.org/mock/mockgen"]]
 version = "0.6.0"
 backend = "go:go.uber.org/mock/mockgen"
+specifiers = ["latest"]
+
+[[tools."go:golang.org/x/tools/cmd/goimports"]]
+version = "0.52.0"
+backend = "go:golang.org/x/tools/cmd/goimports"
 specifiers = ["latest"]
 
 [[tools.golangci-lint]]
