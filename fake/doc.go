@@ -85,6 +85,10 @@
 // A parameter or result with no name or a blank one is named by mockery after its type:
 // S for string, N for int, B for bool, Err for error, Thing for a.Thing, Bools for ...bool,
 // with a number when the name repeats (S, S1).
+// mockery renames a name which clashes with an imported package (sync to sync1)
+// and adds MoqParam to a name derived from a predeclared type like any:
+// these additions are removed, so the fields are Sync and Any.
+// Only a name ending in a digit keeps the added number: ipv4 clashing with an import is Ipv41.
 // Name the results in the interface to get more meaningful fields.
 //
 // A name which can't be used gets the prefix Arg for a parameter or Result for a result:

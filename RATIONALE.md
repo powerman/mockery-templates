@@ -73,7 +73,10 @@ In priority order:
     per-method fields are values, so a zero `FakeX{}` works like `NewFakeX()`;
     per-method type names are derived from the full struct name,
     so no prefix trimming is needed and they never clash with `go-mockgen` output;
-    `[]any` instead of `[]interface{}`.
+    `[]any` instead of `[]interface{}`;
+    fields of call records are named after parameters and results instead of `ArgN`/`ResultN`,
+    and a conflicting name keeps its spelling with the prefix `Arg` or `Result` (`ArgArgs`):
+    a sudden `Arg0` in place of common names like `s` or `fn` would be unpredictable.
     Further changes are evaluated one by one and may break compatibility:
     a project keeps its copy of a template until it updates,
     and the update arrives as an ordinary diff with any breakage visible at compile time.
@@ -143,6 +146,11 @@ In priority order:
   A fix to it (imports, generics, name collisions) must be applied to both.
   Mitigated by shared fixtures
   and by behavior tests covering the common semantics for both templates.
+- **Names of call record fields depend on the names mockery passes to templates.**
+  A template can't tell an unnamed parameter from a named one, so an unnamed `string` gives `S`.
+  Mockery's renames are undone only approximately:
+  `ipv4` clashing with an import gives `Ipv41`,
+  and `Eq(a, b T) bool` in a package importing `b` gives `ResultB` instead of `B1`.
 - **Team adoption.**
   The go-mockgen API is niche and no more familiar to a team than a custom one.
   `go-mockgen` keeps the go-mockgen README valid as documentation;
