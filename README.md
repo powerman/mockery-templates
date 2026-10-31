@@ -41,7 +41,7 @@ t=fake # Or go-mockgen.
 mkdir -p .mockery
 for f in "$t.templ" "$t.templ.schema.json"; do
     curl -fsSLo ".mockery/$f" \
-        "https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.1.0/$t/$f"
+        "https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.2.0/$t/$f"
 done
 ```
 
@@ -50,7 +50,7 @@ Alternatively, refer to the template by URL and mockery will download it
 (and the schema next to it) on every run:
 
 ```yaml
-template: https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.1.0/fake/fake.templ
+template: https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.2.0/fake/fake.templ
 ```
 
 ### Delete outputs before running mockery
