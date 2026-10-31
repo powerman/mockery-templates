@@ -31,40 +31,71 @@ _anchors:
     pkgname: gomockgentest
     filename: 'stub.{{.InterfaceFile | base}}'
     structname: 'Mock{{.InterfaceName | firstUpper}}'
-  go-mockgen-all: &go-mockgen-all
+  fake: &fake
+    template: file://fake/fake.templ
+    dir: '{{.InterfaceDirRelative}}'
+    pkgname: '{{.SrcPackageName}}'
+    filename: 'fake.{{.InterfaceFile | base}}'
+    structname: 'Fake{{.InterfaceName | firstUpper}}'
+  fake-internal-test: &fake-internal-test
+    template: file://fake/fake.templ
+    dir: '{{.InterfaceDirRelative}}'
+    pkgname: '{{.SrcPackageName}}'
+    filename: 'fake.internal_test.go'
+    structname: 'FakeInternal{{.InterfaceName | firstUpper}}'
+  fake-external-test: &fake-external-test
+    template: file://fake/fake.templ
+    dir: '{{.InterfaceDirRelative}}'
+    pkgname: '{{.SrcPackageName}}_test'
+    filename: 'fake.{{.InterfaceFile | base | trimSuffix ".go"}}_test.go'
+    structname: 'Fake{{.InterfaceName | firstUpper}}'
+  fake-another-pkg: &fake-another-pkg
+    template: file://fake/fake.templ
+    dir: '{{.InterfaceDirRelative}}/faketest'
+    pkgname: faketest
+    filename: 'fake.{{.InterfaceFile | base}}'
+    structname: 'Fake{{.InterfaceName | firstUpper}}'
+  all: &all
     - *go-mockgen
     - *go-mockgen-internal-test
     - *go-mockgen-external-test
     - *go-mockgen-another-pkg
+    - *fake
+    - *fake-internal-test
+    - *fake-external-test
+    - *fake-another-pkg
 packages:
+  github.com/powerman/mockery-templates/fake:
+    interfaces:
+      Store: {config: *fake}
   github.com/powerman/mockery-templates/go-mockgen:
     interfaces:
       Store: {config: *go-mockgen}
   github.com/powerman/mockery-templates/internal/fixture:
     interfaces:
       Repo:
-        configs: *go-mockgen-all
+        configs: *all
       Variadic:
-        configs: *go-mockgen-all
+        configs: *all
       NoResults:
-        configs: *go-mockgen-all
+        configs: *all
       Collide:
-        configs: *go-mockgen-all
+        configs: *all
       Swapper:
-        configs: *go-mockgen-all
+        configs: *all
       ReadCloser:
-        configs: *go-mockgen-all
+        configs: *all
       I1:
-        configs: *go-mockgen-all
+        configs: *all
       I2:
-        configs: *go-mockgen-all
+        configs: *all
       I3:
-        configs: *go-mockgen-all
+        configs: *all
       I4:
-        configs: *go-mockgen-all
+        configs: *all
       Cmp:
-        configs: *go-mockgen-all
+        configs: *all
       Empty:
-        configs: *go-mockgen-all
+        configs: *all
       unexported:
-        configs: [*go-mockgen, *go-mockgen-internal-test]
+        configs: [*go-mockgen, *go-mockgen-internal-test, *fake, *fake-internal-test]

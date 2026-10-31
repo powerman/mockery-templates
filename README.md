@@ -20,11 +20,13 @@ Why this approach is used instead of dedicated generators is explained in
 
 ## Templates
 
+- [fake](https://pkg.go.dev/github.com/powerman/mockery-templates/fake) —
+  stateful fakes with an own evolving API derived from go-mockgen.
+  Recommended.
 - [go-mockgen](https://pkg.go.dev/github.com/powerman/mockery-templates/go-mockgen) —
   stateful fakes with the same API as
   [go-mockgen](https://github.com/derision-test/go-mockgen) v2.1.1.
-  Frozen: fixes only.
-- `fake` — stateful fakes with an own evolving API derived from go-mockgen (planned).
+  Frozen: fixes only, use it for compatibility and migration.
 
 The generated API, naming rules and `.mockery.yml` examples of a template
 are documented on its pkg.go.dev page.
@@ -32,13 +34,14 @@ are documented on its pkg.go.dev page.
 ## Installation
 
 Copy the template with its JSON schema into the project, e.g. into `.mockery/`,
-and refer to it in `.mockery.yml` as `template: file://.mockery/go-mockgen.templ`:
+and refer to it in `.mockery.yml` as `template: file://.mockery/fake.templ`:
 
 ```sh
+t=fake # Or go-mockgen.
 mkdir -p .mockery
-for f in go-mockgen.templ go-mockgen.templ.schema.json; do
+for f in "$t.templ" "$t.templ.schema.json"; do
     curl -fsSLo ".mockery/$f" \
-        "https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.1.0/go-mockgen/$f"
+        "https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.1.0/$t/$f"
 done
 ```
 
@@ -47,7 +50,7 @@ Alternatively, refer to the template by URL and mockery will download it
 (and the schema next to it) on every run:
 
 ```yaml
-template: https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.1.0/go-mockgen/go-mockgen.templ
+template: https://raw.githubusercontent.com/powerman/mockery-templates/refs/tags/v0.1.0/fake/fake.templ
 ```
 
 ### Delete outputs before running mockery
