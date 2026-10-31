@@ -66,8 +66,8 @@
 //     Use them to override a single next call:
 //     the following calls fall back to the default hook, or panic if there is none.
 //   - [FakeStoreGetFunc.History] returns a copy of all recorded calls in order,
-//     each with fields ArgN and ResultN.
-//     A variadic argument is recorded as a slice in the last ArgN,
+//     each with a field per parameter and result (see "Call records").
+//     A variadic argument is recorded as a slice in its field,
 //     and [FakeStoreGetFuncCall.Args] flattens it.
 //     A call is recorded after its hook returns, so a call which panics is not recorded.
 //
@@ -77,6 +77,28 @@
 //
 // A fake contains mutexes and must not be copied after first use:
 // keep it in a variable or pass a pointer to it (go vet reports copies).
+//
+// # Call records
+//
+// A field of a call record has the exported name of the method's parameter or result,
+// like [FakeStoreGetFuncCall.Key] and [FakeStoreGetFuncCall.Err] (id becomes ID).
+// A parameter or result with no name or a blank one is named by mockery after its type:
+// S for string, N for int, B for bool, Err for error, Thing for a.Thing, Bools for ...bool,
+// with a number when the name repeats (S, S1).
+// Name the results in the interface to get more meaningful fields.
+//
+// A name which can't be used gets the prefix Arg for a parameter or Result for a result:
+//
+//   - Args and Results are methods of a call record, so args becomes ArgArgs;
+//   - a name already used by a previous parameter or result gets the prefix,
+//     so foo and Foo become Foo and ArgFoo, and parameter size with result Size
+//     become Size and ResultSize;
+//   - a name which is not exported after upper-casing the first letter gets the prefix,
+//     so _x becomes Arg_x.
+//
+// Renaming a parameter or a result in an interface renames the field,
+// so tests using the field stop compiling until they are updated.
+// Args and Results always keep the order of parameters and results.
 //
 // # Not supported
 //
@@ -98,6 +120,9 @@
 //     without trimming a leading "Mock":
 //     no special case in naming and no clashes with go-mockgen output in the same package.
 //   - Args and Results return []any instead of []interface{}: this is modern Go.
+//   - Fields of a call record are named after parameters and results
+//     instead of ArgN and ResultN:
+//     a test reads call.Key, not call.Arg1, and can't confuse positions.
 //
 // [mockery]: https://github.com/vektra/mockery
 package fake

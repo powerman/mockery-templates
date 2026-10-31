@@ -97,5 +97,7 @@ packages:
         configs: *all
       Empty:
         configs: *all
+      CallFields:
+        config: *fake-another-pkg
       unexported:
         configs: [*go-mockgen, *go-mockgen-internal-test, *fake, *fake-internal-test]

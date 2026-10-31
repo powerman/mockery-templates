@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"sync"
 	"testing"
+	"time"
 
 	"github.com/powerman/check"
 
@@ -124,17 +125,17 @@ func TestNewFakeRepo_configured(tt *testing.T) {
 
 	getCalls := fake.GetFunc.History()
 	t.Len(getCalls, 1)
-	t.Equal(getCalls[0].Arg0.Value(ctxKey{}), "ctx")
-	t.Equal(getCalls[0].Arg1, 42)
-	t.Zero(getCalls[0].Result0)
-	t.False(getCalls[0].Result1)
-	t.Nil(getCalls[0].Result2)
+	t.Equal(getCalls[0].Ctx.Value(ctxKey{}), "ctx")
+	t.Equal(getCalls[0].ID, 42)
+	t.Zero(getCalls[0].S)
+	t.False(getCalls[0].B)
+	t.Nil(getCalls[0].Err)
 	t.Len(getCalls[0].Args(), 2)
 	t.DeepEqual(getCalls[0].Results(), []any{"", false, nil})
 
 	putCalls := fake.PutFunc.History()
 	t.Len(putCalls, 1)
-	t.Equal(putCalls[0].Arg1, "put")
+	t.Equal(putCalls[0].S, "put")
 	t.DeepEqual(putCalls[0].Results(), []any{error(nil)})
 
 	kindsCalls := fake.KindsFunc.History()
@@ -144,8 +145,8 @@ func TestNewFakeRepo_configured(tt *testing.T) {
 
 	inlineCalls := fake.InlineFunc.History()
 	t.Len(inlineCalls, 1)
-	t.Equal(inlineCalls[0].Arg0.X, 1)
-	t.Zero(inlineCalls[0].Result0)
+	t.Equal(inlineCalls[0].S.X, 1)
+	t.Zero(inlineCalls[0].Val)
 }
 
 func TestNewFakeRepo_drainedQueue(tt *testing.T) {
@@ -189,7 +190,7 @@ func TestNewFakeRepoFrom(tt *testing.T) {
 	t.Err(res.putErr, errTest)
 	t.Equal(res.inline.X, 2)
 	t.DeepEqual(impl.calls, []string{"Get", "Put", "Kinds", "Inline"})
-	t.Err(fake.GetFunc.History()[0].Result2, errTest)
+	t.Err(fake.GetFunc.History()[0].Err, errTest)
 
 	fake.GetFunc.PushReturn("pushed", false, nil)
 	get1, _, getErr := fake.Get(t.Context(), 1)
@@ -231,7 +232,7 @@ func TestFakeRepoGetFunc_PushHook(tt *testing.T) {
 	assertGet(t, get, "hook", false, errTest)
 
 	t.Len(fake.GetFunc.History(), 9)
-	t.Equal(fake.GetFunc.History()[2].Result0, "three")
+	t.Equal(fake.GetFunc.History()[2].S, "three")
 }
 
 func assertGet(t *check.C, get func() (string, bool, error), want1 string, want2 bool, wantErr error) {
@@ -253,12 +254,12 @@ func TestFakeRepoGetFunc_History(tt *testing.T) {
 
 	history := fake.GetFunc.History()
 	t.Len(history, 2)
-	t.Equal(history[0].Arg1, 1)
-	t.Equal(history[1].Arg1, 2)
-	history[0].Arg1 = 10
-	history[1].Arg1 = 20
-	t.Equal(fake.GetFunc.History()[0].Arg1, 1)
-	t.Equal(fake.GetFunc.History()[1].Arg1, 2)
+	t.Equal(history[0].ID, 1)
+	t.Equal(history[1].ID, 2)
+	history[0].ID = 10
+	history[1].ID = 20
+	t.Equal(fake.GetFunc.History()[0].ID, 1)
+	t.Equal(fake.GetFunc.History()[1].ID, 2)
 }
 
 func TestVariadic(tt *testing.T) {
@@ -286,19 +287,19 @@ func TestVariadic(tt *testing.T) {
 
 	doCalls := fake.DoFunc.History()
 	t.Len(doCalls, 2)
-	t.Equal(doCalls[0].Arg0, "cmd")
-	t.DeepEqual(doCalls[0].Arg1, []any{1, "two", nil})
+	t.Equal(doCalls[0].Command, "cmd")
+	t.DeepEqual(doCalls[0].ArgArgs, []any{1, "two", nil})
 	t.DeepEqual(doCalls[0].Args(), []any{"cmd", 1, "two", nil})
 	t.Equal(doCalls[0].Results()[0], 3)
 	t.Len(doCalls[0].Results(), 2)
-	t.Len(doCalls[1].Arg1, 0)
+	t.Len(doCalls[1].ArgArgs, 0)
 	t.DeepEqual(doCalls[1].Args(), []any{"none"})
 
 	onlyCalls := fake.OnlyFunc.History()
 	t.Len(onlyCalls, 2)
-	t.Len(onlyCalls[0].Arg0, 0)
+	t.Len(onlyCalls[0].Opts, 0)
 	t.DeepEqual(onlyCalls[0].Args(), []any{})
-	t.Len(onlyCalls[1].Arg0, 2)
+	t.Len(onlyCalls[1].Opts, 2)
 	t.Len(onlyCalls[1].Args(), 2)
 	t.DeepEqual(onlyCalls[1].Results(), []any{errTest})
 }
@@ -351,7 +352,7 @@ func TestSwapper(tt *testing.T) {
 	fake := faketest.NewFakeSwapper()
 	fake.SwapFunc.SetDefaultReturn(b.Thing{})
 	t.Equal(fake.Swap(a.Thing{}), b.Thing{})
-	t.Equal(fake.SwapFunc.History()[0].Arg0, a.Thing{})
+	t.Equal(fake.SwapFunc.History()[0].T, a.Thing{})
 }
 
 func TestReadCloser(tt *testing.T) {
@@ -378,8 +379,8 @@ func TestGenerics(tt *testing.T) {
 	i2.M1(1)
 	t.Equal(i2.M2(2), "two")
 	t.Equal(i2.M2(3), "")
-	t.Equal(i2.M1Func.History()[0].Arg0, 1)
-	t.Equal(i2.M2Func.History()[1].Arg0, 3)
+	t.Equal(i2.M1Func.History()[0].V, 1)
+	t.Equal(i2.M2Func.History()[1].V, 3)
 
 	i2From := faketest.NewFakeI2From[int, string](i2)
 	t.Equal(i2From.M2(4), "")
@@ -408,6 +409,96 @@ func TestEmpty(tt *testing.T) {
 
 	t.NotNil(faketest.NewFakeEmpty())
 	t.NotNil(faketest.NewFakeEmptyFrom(nil))
+}
+
+func TestCallFields(tt *testing.T) {
+	tt.Parallel()
+	t := check.T(tt).MustAll()
+
+	fake := faketest.NewFakeCallFields()
+
+	fake.NamedFunc.PushReturn(3, errTest)
+	_, _ = fake.Named("name", 1)
+	named := fake.NamedFunc.History()[0]
+	t.DeepEqual(named, faketest.FakeCallFieldsNamedFuncCall{Name: "name", Perm: 1, Size: 3, Err: errTest})
+	t.DeepEqual(named.Args(), []any{"name", 1})
+	t.DeepEqual(named.Results(), []any{3, errTest})
+
+	thing := a.Thing{}
+	fake.UnnamedFunc.PushReturn("r", 2, errTest)
+	_, _, _ = fake.Unnamed(1, "s", "any", thing, true, false)
+	unnamed := fake.UnnamedFunc.History()[0]
+	t.DeepEqual(unnamed, faketest.FakeCallFieldsUnnamedFuncCall{
+		N: 1, S: "s", Any: "any", Thing: thing, Bools: []bool{true, false},
+		S1: "r", Any1: 2, Err: errTest,
+	})
+	t.DeepEqual(unnamed.Args(), []any{1, "s", "any", thing, true, false})
+	t.DeepEqual(unnamed.Results(), []any{"r", 2, errTest})
+
+	fake.BlankFunc.PushReturn(true, errTest)
+	_, _ = fake.Blank(1, "s")
+	t.DeepEqual(fake.BlankFunc.History()[0], faketest.FakeCallFieldsBlankFuncCall{
+		N: 1, S: "s", B: true, Err: errTest,
+	})
+
+	fake.ShortFunc.PushReturn(3, 4)
+	_, _ = fake.Short("s", 1, nil, struct{}{})
+	t.DeepEqual(fake.ShortFunc.History()[0], faketest.FakeCallFieldsShortFuncCall{
+		S: "s", N: 1, Fn: nil, Val: struct{}{}, X: 3, Y: 4,
+	})
+
+	fake.MethodsFunc.PushReturn()
+	fake.Methods(1, 2)
+	methods := fake.MethodsFunc.History()[0]
+	t.DeepEqual(methods, faketest.FakeCallFieldsMethodsFuncCall{ArgArgs: 1, ArgResults: 2})
+	t.DeepEqual(methods.Args(), []any{1, 2})
+	t.DeepEqual(methods.Results(), []any{})
+
+	fake.ResultMethodsFunc.PushReturn(1, 2)
+	_, _ = fake.ResultMethods()
+	resultMethods := fake.ResultMethodsFunc.History()[0]
+	t.DeepEqual(resultMethods,
+		faketest.FakeCallFieldsResultMethodsFuncCall{ResultArgs: 1, ResultResults: 2})
+	t.DeepEqual(resultMethods.Results(), []any{1, 2})
+
+	fake.PrefixedFunc.PushReturn(4)
+	_ = fake.Prefixed(1, 2, 3)
+	t.DeepEqual(fake.PrefixedFunc.History()[0],
+		faketest.FakeCallFieldsPrefixedFuncCall{X: 1, Arg0: 2, Result0: 3, Arg1: 4})
+
+	fake.SameCaseFunc.PushReturn()
+	fake.SameCase(1, 2, 3)
+	t.DeepEqual(fake.SameCaseFunc.History()[0],
+		faketest.FakeCallFieldsSameCaseFuncCall{Foo: 1, ArgFoo: 2, ArgArgFoo: 3})
+
+	fake.ArgResultFunc.PushReturn(errTest)
+	_ = fake.ArgResult(1)
+	t.DeepEqual(fake.ArgResultFunc.History()[0],
+		faketest.FakeCallFieldsArgResultFuncCall{Size: 1, ResultSize: errTest})
+
+	fake.ErrCaseFunc.PushReturn(errTest)
+	_ = fake.ErrCase(1)
+	t.DeepEqual(fake.ErrCaseFunc.History()[0],
+		faketest.FakeCallFieldsErrCaseFuncCall{Err: 1, ResultErr: errTest})
+
+	var mutex sync.Mutex
+	now := time.Now()
+	fake.ImportedFunc.PushReturn(now)
+	_ = fake.Imported(t.Context(), &mutex)
+	imported := fake.ImportedFunc.History()[0]
+	t.Equal(imported.Context, t.Context())
+	t.Equal(imported.Sync, &mutex)
+	t.Equal(imported.Time, now)
+
+	fake.NumberedFunc.PushReturn()
+	fake.Numbered(1, 2, 3)
+	t.DeepEqual(fake.NumberedFunc.History()[0],
+		faketest.FakeCallFieldsNumberedFuncCall{X1: 1, X: 2, V2: 3})
+
+	fake.NotExportedFunc.PushReturn()
+	fake.NotExported(1, 2, 3)
+	t.DeepEqual(fake.NotExportedFunc.History()[0],
+		faketest.FakeCallFieldsNotExportedFuncCall{Arg_x: 1, Arg名: 2, Ключ: 3})
 }
 
 func TestConcurrent(tt *testing.T) {
@@ -439,7 +530,7 @@ func TestConcurrent(tt *testing.T) {
 	history := fake.PutFunc.History()
 	t.Len(history, workers*calls)
 	for _, call := range history {
-		t.Err(call.Result0, errTest)
+		t.Err(call.Err, errTest)
 	}
 	t.PanicMatch(func() { _ = fake.Put(t.Context(), "") },
 		`^unexpected invocation of FakeRepo.Put$`)

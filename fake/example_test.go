@@ -104,7 +104,7 @@ func ExampleFakeStoreGetFunc_History() {
 	_, _ = store.Get(ctx, "b")
 
 	for _, call := range store.GetFunc.History() {
-		fmt.Printf("Get(%q) = %q, %v\n", call.Arg1, call.Result0, call.Result1)
+		fmt.Printf("Get(%q) = %q, %v\n", call.Key, call.S, call.Err)
 	}
 	// Output:
 	// Get("a") = "1", <nil>

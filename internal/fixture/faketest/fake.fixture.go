@@ -5,7 +5,9 @@
 package faketest
 
 import (
+	"context"
 	"sync"
+	"time"
 
 	"github.com/powerman/mockery-templates/internal/fixture"
 	"github.com/powerman/mockery-templates/internal/fixture/a"
@@ -137,31 +139,31 @@ func (f *FakeRepoGetFunc) History() []FakeRepoGetFuncCall {
 // FakeRepoGetFuncCall is an object that describes an invocation
 // of method Get on an instance of FakeRepo.
 type FakeRepoGetFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Ctx is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 fixture.Ctx
-	// Arg1 is the value of the 2nd argument
+	Ctx fixture.Ctx
+	// ID is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 int
-	// Result0 is the value of the 1st result
+	ID int
+	// S is the value of the 1st result
 	// returned from this method invocation.
-	Result0 string
-	// Result1 is the value of the 2nd result
+	S string
+	// B is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 bool
-	// Result2 is the value of the 3rd result
+	B bool
+	// Err is the value of the 3rd result
 	// returned from this method invocation.
-	Result2 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoGetFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.Ctx, c.ID}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeRepoGetFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1, c.Result2}
+	return []any{c.S, c.B, c.Err}
 }
 
 // FakeRepoInlineFunc describes the behavior when the Inline method
@@ -247,25 +249,25 @@ func (f *FakeRepoInlineFunc) History() []FakeRepoInlineFuncCall {
 // FakeRepoInlineFuncCall is an object that describes an invocation
 // of method Inline on an instance of FakeRepo.
 type FakeRepoInlineFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// S is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 struct{ X int }
-	// Arg1 is the value of the 2nd argument
+	S struct{ X int }
+	// I is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 interface{ Y() }
-	// Result0 is the value of the 1st result
+	I interface{ Y() }
+	// Val is the value of the 1st result
 	// returned from this method invocation.
-	Result0 struct{ X int }
+	Val struct{ X int }
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoInlineFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.S, c.I}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeRepoInlineFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Val}
 }
 
 // FakeRepoKindsFunc describes the behavior when the Kinds method
@@ -351,29 +353,29 @@ func (f *FakeRepoKindsFunc) History() []FakeRepoKindsFuncCall {
 // FakeRepoKindsFuncCall is an object that describes an invocation
 // of method Kinds on an instance of FakeRepo.
 type FakeRepoKindsFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// P is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 *int
-	// Arg1 is the value of the 2nd argument
+	P *int
+	// S is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 []string
-	// Arg2 is the value of the 3rd argument
+	S []string
+	// M is the value of the 3rd argument
 	// passed to this method invocation.
-	Arg2 map[string]int
-	// Arg3 is the value of the 4th argument
+	M map[string]int
+	// Arr is the value of the 4th argument
 	// passed to this method invocation.
-	Arg3 [4]byte
-	// Arg4 is the value of the 5th argument
+	Arr [4]byte
+	// Ch is the value of the 5th argument
 	// passed to this method invocation.
-	Arg4 <-chan int
-	// Arg5 is the value of the 6th argument
+	Ch <-chan int
+	// Fn is the value of the 6th argument
 	// passed to this method invocation.
-	Arg5 func(int) error
+	Fn func(int) error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoKindsFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1, c.Arg2, c.Arg3, c.Arg4, c.Arg5}
+	return []any{c.P, c.S, c.M, c.Arr, c.Ch, c.Fn}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -464,25 +466,25 @@ func (f *FakeRepoPutFunc) History() []FakeRepoPutFuncCall {
 // FakeRepoPutFuncCall is an object that describes an invocation
 // of method Put on an instance of FakeRepo.
 type FakeRepoPutFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Ctx is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 fixture.Ctx
-	// Arg1 is the value of the 2nd argument
+	Ctx fixture.Ctx
+	// S is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 string
-	// Result0 is the value of the 1st result
+	S string
+	// Err is the value of the 1st result
 	// returned from this method invocation.
-	Result0 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoPutFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.Ctx, c.S}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeRepoPutFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Err}
 }
 
 // FakeVariadic is a fake implementation of the Variadic interface
@@ -598,18 +600,18 @@ func (f *FakeVariadicDoFunc) History() []FakeVariadicDoFuncCall {
 // FakeVariadicDoFuncCall is an object that describes an invocation
 // of method Do on an instance of FakeVariadic.
 type FakeVariadicDoFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Command is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 string
-	// Arg1 is a slice containing the values of the variadic arguments
+	Command string
+	// ArgArgs is a slice containing the values of the variadic arguments
 	// passed to this method invocation.
-	Arg1 []any
-	// Result0 is the value of the 1st result
+	ArgArgs []any
+	// Any is the value of the 1st result
 	// returned from this method invocation.
-	Result0 any
-	// Result1 is the value of the 2nd result
+	Any any
+	// Err is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
@@ -618,16 +620,16 @@ type FakeVariadicDoFuncCall struct {
 // would result in a slice of four, not two.
 func (c FakeVariadicDoFuncCall) Args() []any {
 	trailing := []any{}
-	for _, val := range c.Arg1 {
+	for _, val := range c.ArgArgs {
 		trailing = append(trailing, val)
 	}
 
-	return append([]any{c.Arg0}, trailing...)
+	return append([]any{c.Command}, trailing...)
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeVariadicDoFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1}
+	return []any{c.Any, c.Err}
 }
 
 // FakeVariadicOnlyFunc describes the behavior when the Only method
@@ -713,12 +715,12 @@ func (f *FakeVariadicOnlyFunc) History() []FakeVariadicOnlyFuncCall {
 // FakeVariadicOnlyFuncCall is an object that describes an invocation
 // of method Only on an instance of FakeVariadic.
 type FakeVariadicOnlyFuncCall struct {
-	// Arg0 is a slice containing the values of the variadic arguments
+	// Opts is a slice containing the values of the variadic arguments
 	// passed to this method invocation.
-	Arg0 []fixture.Option
-	// Result0 is the value of the 1st result
+	Opts []fixture.Option
+	// Err is the value of the 1st result
 	// returned from this method invocation.
-	Result0 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
@@ -727,7 +729,7 @@ type FakeVariadicOnlyFuncCall struct {
 // would result in a slice of four, not two.
 func (c FakeVariadicOnlyFuncCall) Args() []any {
 	trailing := []any{}
-	for _, val := range c.Arg0 {
+	for _, val := range c.Opts {
 		trailing = append(trailing, val)
 	}
 
@@ -736,7 +738,7 @@ func (c FakeVariadicOnlyFuncCall) Args() []any {
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeVariadicOnlyFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Err}
 }
 
 // FakeNoResults is a fake implementation of the NoResults interface
@@ -852,14 +854,14 @@ func (f *FakeNoResultsFireFunc) History() []FakeNoResultsFireFuncCall {
 // FakeNoResultsFireFuncCall is an object that describes an invocation
 // of method Fire on an instance of FakeNoResults.
 type FakeNoResultsFireFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 int
+	V int
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeNoResultsFireFuncCall) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -1068,49 +1070,49 @@ func (f *FakeCollideNamesFunc) History() []FakeCollideNamesFuncCall {
 // FakeCollideNamesFuncCall is an object that describes an invocation
 // of method Names on an instance of FakeCollide.
 type FakeCollideNamesFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// M is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 int
-	// Arg1 is the value of the 2nd argument
+	M int
+	// F is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 int
-	// Arg2 is the value of the 3rd argument
+	F int
+	// Hook is the value of the 3rd argument
 	// passed to this method invocation.
-	Arg2 int
-	// Arg3 is the value of the 4th argument
+	Hook int
+	// R0 is the value of the 4th argument
 	// passed to this method invocation.
-	Arg3 error
-	// Arg4 is the value of the 5th argument
+	R0 error
+	// V0 is the value of the 5th argument
 	// passed to this method invocation.
-	Arg4 string
-	// Arg5 is the value of the 6th argument
+	V0 string
+	// Mutex is the value of the 6th argument
 	// passed to this method invocation.
-	Arg5 *sync.Mutex
-	// Arg6 is the value of the 7th argument
+	Mutex *sync.Mutex
+	// History is the value of the 7th argument
 	// passed to this method invocation.
-	Arg6 []int
-	// Arg7 is the value of the 8th argument
+	History []int
+	// Sync is the value of the 8th argument
 	// passed to this method invocation.
-	Arg7 bool
-	// Arg8 is the value of the 9th argument
+	Sync bool
+	// I is the value of the 9th argument
 	// passed to this method invocation.
-	Arg8 any
-	// Result0 is the value of the 1st result
+	I any
+	// R1 is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
-	// Result1 is the value of the 2nd result
+	R1 int
+	// Err is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeCollideNamesFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1, c.Arg2, c.Arg3, c.Arg4, c.Arg5, c.Arg6, c.Arg7, c.Arg8}
+	return []any{c.M, c.F, c.Hook, c.R0, c.V0, c.Mutex, c.History, c.Sync, c.I}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeCollideNamesFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1}
+	return []any{c.R1, c.Err}
 }
 
 // FakeSwapper is a fake implementation of the Swapper interface
@@ -1220,22 +1222,22 @@ func (f *FakeSwapperSwapFunc) History() []FakeSwapperSwapFuncCall {
 // FakeSwapperSwapFuncCall is an object that describes an invocation
 // of method Swap on an instance of FakeSwapper.
 type FakeSwapperSwapFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// T is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 a.Thing
-	// Result0 is the value of the 1st result
+	T a.Thing
+	// Thing is the value of the 1st result
 	// returned from this method invocation.
-	Result0 b.Thing
+	Thing b.Thing
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeSwapperSwapFuncCall) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.T}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeSwapperSwapFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Thing}
 }
 
 // FakeReadCloser is a fake implementation of the ReadCloser interface
@@ -1351,9 +1353,9 @@ func (f *FakeReadCloserCloseFunc) History() []FakeReadCloserCloseFuncCall {
 // FakeReadCloserCloseFuncCall is an object that describes an invocation
 // of method Close on an instance of FakeReadCloser.
 type FakeReadCloserCloseFuncCall struct {
-	// Result0 is the value of the 1st result
+	// Err is the value of the 1st result
 	// returned from this method invocation.
-	Result0 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
@@ -1363,7 +1365,7 @@ func (c FakeReadCloserCloseFuncCall) Args() []any {
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeReadCloserCloseFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Err}
 }
 
 // FakeReadCloserReadFunc describes the behavior when the Read method
@@ -1449,25 +1451,25 @@ func (f *FakeReadCloserReadFunc) History() []FakeReadCloserReadFuncCall {
 // FakeReadCloserReadFuncCall is an object that describes an invocation
 // of method Read on an instance of FakeReadCloser.
 type FakeReadCloserReadFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// P is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 []byte
-	// Result0 is the value of the 1st result
+	P []byte
+	// N is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
-	// Result1 is the value of the 2nd result
+	N int
+	// Err is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeReadCloserReadFuncCall) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.P}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeReadCloserReadFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1}
+	return []any{c.N, c.Err}
 }
 
 // FakeI1 is a fake implementation of the I1 interface
@@ -1577,14 +1579,14 @@ func (f *FakeI1M1Func[T]) History() []FakeI1M1FuncCall[T] {
 // FakeI1M1FuncCall is an object that describes an invocation
 // of method M1 on an instance of FakeI1.
 type FakeI1M1FuncCall[T any] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T
+	V T
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI1M1FuncCall[T]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -1705,14 +1707,14 @@ func (f *FakeI2M1Func[T1, T2]) History() []FakeI2M1FuncCall[T1, T2] {
 // FakeI2M1FuncCall is an object that describes an invocation
 // of method M1 on an instance of FakeI2.
 type FakeI2M1FuncCall[T1 any, T2 any] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T1
+	V T1
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI2M1FuncCall[T1, T2]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -1803,22 +1805,22 @@ func (f *FakeI2M2Func[T1, T2]) History() []FakeI2M2FuncCall[T1, T2] {
 // FakeI2M2FuncCall is an object that describes an invocation
 // of method M2 on an instance of FakeI2.
 type FakeI2M2FuncCall[T1 any, T2 any] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T1
-	// Result0 is the value of the 1st result
+	V T1
+	// V1 is the value of the 1st result
 	// returned from this method invocation.
-	Result0 T2
+	V1 T2
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI2M2FuncCall[T1, T2]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeI2M2FuncCall[T1, T2]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.V1}
 }
 
 // FakeI3 is a fake implementation of the I3 interface
@@ -1928,22 +1930,22 @@ func (f *FakeI3M3Func[T]) History() []FakeI3M3FuncCall[T] {
 // FakeI3M3FuncCall is an object that describes an invocation
 // of method M3 on an instance of FakeI3.
 type FakeI3M3FuncCall[T fixture.SignedIntegerConstraint] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 fixture.I1[T]
-	// Result0 is the value of the 1st result
+	V fixture.I1[T]
+	// N is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
+	N int
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI3M3FuncCall[T]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeI3M3FuncCall[T]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.N}
 }
 
 // FakeI4 is a fake implementation of the I4 interface
@@ -2053,22 +2055,22 @@ func (f *FakeI4M4Func[T]) History() []FakeI4M4FuncCall[T] {
 // FakeI4M4FuncCall is an object that describes an invocation
 // of method M4 on an instance of FakeI4.
 type FakeI4M4FuncCall[T interface{ ~string }] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 fixture.I1[T]
-	// Result0 is the value of the 1st result
+	V fixture.I1[T]
+	// N is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
+	N int
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI4M4FuncCall[T]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeI4M4FuncCall[T]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.N}
 }
 
 // FakeCmp is a fake implementation of the Cmp interface
@@ -2178,25 +2180,1502 @@ func (f *FakeCmpEqFunc[T]) History() []FakeCmpEqFuncCall[T] {
 // FakeCmpEqFuncCall is an object that describes an invocation
 // of method Eq on an instance of FakeCmp.
 type FakeCmpEqFuncCall[T comparable] struct {
-	// Arg0 is the value of the 1st argument
+	// A is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T
-	// Arg1 is the value of the 2nd argument
+	A T
+	// B is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 T
-	// Result0 is the value of the 1st result
+	B T
+	// ResultB is the value of the 1st result
 	// returned from this method invocation.
-	Result0 bool
+	ResultB bool
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeCmpEqFuncCall[T]) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.A, c.B}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeCmpEqFuncCall[T]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.ResultB}
+}
+
+// FakeCallFields is a fake implementation of the CallFields interface
+// (from the package github.com/powerman/mockery-templates/internal/fixture) used for unit testing.
+type FakeCallFields struct {
+	// ArgResultFunc is an instance of a fake function object
+	// controlling the behavior of the method ArgResult.
+	ArgResultFunc FakeCallFieldsArgResultFunc
+	// BlankFunc is an instance of a fake function object
+	// controlling the behavior of the method Blank.
+	BlankFunc FakeCallFieldsBlankFunc
+	// ErrCaseFunc is an instance of a fake function object
+	// controlling the behavior of the method ErrCase.
+	ErrCaseFunc FakeCallFieldsErrCaseFunc
+	// ImportedFunc is an instance of a fake function object
+	// controlling the behavior of the method Imported.
+	ImportedFunc FakeCallFieldsImportedFunc
+	// MethodsFunc is an instance of a fake function object
+	// controlling the behavior of the method Methods.
+	MethodsFunc FakeCallFieldsMethodsFunc
+	// NamedFunc is an instance of a fake function object
+	// controlling the behavior of the method Named.
+	NamedFunc FakeCallFieldsNamedFunc
+	// NotExportedFunc is an instance of a fake function object
+	// controlling the behavior of the method NotExported.
+	NotExportedFunc FakeCallFieldsNotExportedFunc
+	// NumberedFunc is an instance of a fake function object
+	// controlling the behavior of the method Numbered.
+	NumberedFunc FakeCallFieldsNumberedFunc
+	// PrefixedFunc is an instance of a fake function object
+	// controlling the behavior of the method Prefixed.
+	PrefixedFunc FakeCallFieldsPrefixedFunc
+	// ResultMethodsFunc is an instance of a fake function object
+	// controlling the behavior of the method ResultMethods.
+	ResultMethodsFunc FakeCallFieldsResultMethodsFunc
+	// SameCaseFunc is an instance of a fake function object
+	// controlling the behavior of the method SameCase.
+	SameCaseFunc FakeCallFieldsSameCaseFunc
+	// ShortFunc is an instance of a fake function object
+	// controlling the behavior of the method Short.
+	ShortFunc FakeCallFieldsShortFunc
+	// UnnamedFunc is an instance of a fake function object
+	// controlling the behavior of the method Unnamed.
+	UnnamedFunc FakeCallFieldsUnnamedFunc
+}
+
+// NewFakeCallFields creates a new fake of the CallFields interface.
+// All methods panic on invocation, unless overwritten.
+func NewFakeCallFields() *FakeCallFields {
+	return &FakeCallFields{}
+}
+
+// NewFakeCallFieldsFrom creates a new fake of the CallFields interface.
+// All methods delegate to the given implementation, unless overwritten.
+func NewFakeCallFieldsFrom(i fixture.CallFields) *FakeCallFields {
+	return &FakeCallFields{
+		ArgResultFunc: FakeCallFieldsArgResultFunc{
+			defaultHook: i.ArgResult,
+		},
+		BlankFunc: FakeCallFieldsBlankFunc{
+			defaultHook: i.Blank,
+		},
+		ErrCaseFunc: FakeCallFieldsErrCaseFunc{
+			defaultHook: i.ErrCase,
+		},
+		ImportedFunc: FakeCallFieldsImportedFunc{
+			defaultHook: i.Imported,
+		},
+		MethodsFunc: FakeCallFieldsMethodsFunc{
+			defaultHook: i.Methods,
+		},
+		NamedFunc: FakeCallFieldsNamedFunc{
+			defaultHook: i.Named,
+		},
+		NotExportedFunc: FakeCallFieldsNotExportedFunc{
+			defaultHook: i.NotExported,
+		},
+		NumberedFunc: FakeCallFieldsNumberedFunc{
+			defaultHook: i.Numbered,
+		},
+		PrefixedFunc: FakeCallFieldsPrefixedFunc{
+			defaultHook: i.Prefixed,
+		},
+		ResultMethodsFunc: FakeCallFieldsResultMethodsFunc{
+			defaultHook: i.ResultMethods,
+		},
+		SameCaseFunc: FakeCallFieldsSameCaseFunc{
+			defaultHook: i.SameCase,
+		},
+		ShortFunc: FakeCallFieldsShortFunc{
+			defaultHook: i.Short,
+		},
+		UnnamedFunc: FakeCallFieldsUnnamedFunc{
+			defaultHook: i.Unnamed,
+		},
+	}
+}
+
+// FakeCallFieldsArgResultFunc describes the behavior when the ArgResult method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsArgResultFunc struct {
+	defaultHook func(int) error
+	hooks       []func(int) error
+	history     []FakeCallFieldsArgResultFuncCall
+	mutex       sync.Mutex
+}
+
+// ArgResult delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) ArgResult(v0 int) error {
+	r0 := m.ArgResultFunc.nextHook()(v0)
+	m.ArgResultFunc.appendCall(FakeCallFieldsArgResultFuncCall{v0, r0})
+	return r0
+}
+
+// SetDefaultHook sets function that is called when the ArgResult method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsArgResultFunc) SetDefaultHook(hook func(int) error) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the ArgResult method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsArgResultFunc) PushHook(hook func(int) error) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsArgResultFunc) SetDefaultReturn(r0 error) {
+	f.SetDefaultHook(func(int) error {
+		return r0
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsArgResultFunc) PushReturn(r0 error) {
+	f.PushHook(func(int) error {
+		return r0
+	})
+}
+
+func (f *FakeCallFieldsArgResultFunc) nextHook() func(int) error {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.ArgResult")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsArgResultFunc) appendCall(r0 FakeCallFieldsArgResultFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsArgResultFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsArgResultFunc) History() []FakeCallFieldsArgResultFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsArgResultFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsArgResultFuncCall is an object that describes an invocation
+// of method ArgResult on an instance of FakeCallFields.
+type FakeCallFieldsArgResultFuncCall struct {
+	// Size is the value of the 1st argument
+	// passed to this method invocation.
+	Size int
+	// ResultSize is the value of the 1st result
+	// returned from this method invocation.
+	ResultSize error
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsArgResultFuncCall) Args() []any {
+	return []any{c.Size}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsArgResultFuncCall) Results() []any {
+	return []any{c.ResultSize}
+}
+
+// FakeCallFieldsBlankFunc describes the behavior when the Blank method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsBlankFunc struct {
+	defaultHook func(int, string) (bool, error)
+	hooks       []func(int, string) (bool, error)
+	history     []FakeCallFieldsBlankFuncCall
+	mutex       sync.Mutex
+}
+
+// Blank delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Blank(v0 int, v1 string) (bool, error) {
+	r0, r1 := m.BlankFunc.nextHook()(v0, v1)
+	m.BlankFunc.appendCall(FakeCallFieldsBlankFuncCall{v0, v1, r0, r1})
+	return r0, r1
+}
+
+// SetDefaultHook sets function that is called when the Blank method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsBlankFunc) SetDefaultHook(hook func(int, string) (bool, error)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Blank method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsBlankFunc) PushHook(hook func(int, string) (bool, error)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsBlankFunc) SetDefaultReturn(r0 bool, r1 error) {
+	f.SetDefaultHook(func(int, string) (bool, error) {
+		return r0, r1
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsBlankFunc) PushReturn(r0 bool, r1 error) {
+	f.PushHook(func(int, string) (bool, error) {
+		return r0, r1
+	})
+}
+
+func (f *FakeCallFieldsBlankFunc) nextHook() func(int, string) (bool, error) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Blank")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsBlankFunc) appendCall(r0 FakeCallFieldsBlankFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsBlankFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsBlankFunc) History() []FakeCallFieldsBlankFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsBlankFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsBlankFuncCall is an object that describes an invocation
+// of method Blank on an instance of FakeCallFields.
+type FakeCallFieldsBlankFuncCall struct {
+	// N is the value of the 1st argument
+	// passed to this method invocation.
+	N int
+	// S is the value of the 2nd argument
+	// passed to this method invocation.
+	S string
+	// B is the value of the 1st result
+	// returned from this method invocation.
+	B bool
+	// Err is the value of the 2nd result
+	// returned from this method invocation.
+	Err error
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsBlankFuncCall) Args() []any {
+	return []any{c.N, c.S}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsBlankFuncCall) Results() []any {
+	return []any{c.B, c.Err}
+}
+
+// FakeCallFieldsErrCaseFunc describes the behavior when the ErrCase method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsErrCaseFunc struct {
+	defaultHook func(int) error
+	hooks       []func(int) error
+	history     []FakeCallFieldsErrCaseFuncCall
+	mutex       sync.Mutex
+}
+
+// ErrCase delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) ErrCase(v0 int) error {
+	r0 := m.ErrCaseFunc.nextHook()(v0)
+	m.ErrCaseFunc.appendCall(FakeCallFieldsErrCaseFuncCall{v0, r0})
+	return r0
+}
+
+// SetDefaultHook sets function that is called when the ErrCase method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsErrCaseFunc) SetDefaultHook(hook func(int) error) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the ErrCase method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsErrCaseFunc) PushHook(hook func(int) error) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsErrCaseFunc) SetDefaultReturn(r0 error) {
+	f.SetDefaultHook(func(int) error {
+		return r0
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsErrCaseFunc) PushReturn(r0 error) {
+	f.PushHook(func(int) error {
+		return r0
+	})
+}
+
+func (f *FakeCallFieldsErrCaseFunc) nextHook() func(int) error {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.ErrCase")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsErrCaseFunc) appendCall(r0 FakeCallFieldsErrCaseFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsErrCaseFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsErrCaseFunc) History() []FakeCallFieldsErrCaseFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsErrCaseFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsErrCaseFuncCall is an object that describes an invocation
+// of method ErrCase on an instance of FakeCallFields.
+type FakeCallFieldsErrCaseFuncCall struct {
+	// Err is the value of the 1st argument
+	// passed to this method invocation.
+	Err int
+	// ResultErr is the value of the 1st result
+	// returned from this method invocation.
+	ResultErr error
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsErrCaseFuncCall) Args() []any {
+	return []any{c.Err}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsErrCaseFuncCall) Results() []any {
+	return []any{c.ResultErr}
+}
+
+// FakeCallFieldsImportedFunc describes the behavior when the Imported method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsImportedFunc struct {
+	defaultHook func(context.Context, *sync.Mutex) time.Time
+	hooks       []func(context.Context, *sync.Mutex) time.Time
+	history     []FakeCallFieldsImportedFuncCall
+	mutex       sync.Mutex
+}
+
+// Imported delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Imported(v0 context.Context, v1 *sync.Mutex) time.Time {
+	r0 := m.ImportedFunc.nextHook()(v0, v1)
+	m.ImportedFunc.appendCall(FakeCallFieldsImportedFuncCall{v0, v1, r0})
+	return r0
+}
+
+// SetDefaultHook sets function that is called when the Imported method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsImportedFunc) SetDefaultHook(hook func(context.Context, *sync.Mutex) time.Time) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Imported method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsImportedFunc) PushHook(hook func(context.Context, *sync.Mutex) time.Time) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsImportedFunc) SetDefaultReturn(r0 time.Time) {
+	f.SetDefaultHook(func(context.Context, *sync.Mutex) time.Time {
+		return r0
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsImportedFunc) PushReturn(r0 time.Time) {
+	f.PushHook(func(context.Context, *sync.Mutex) time.Time {
+		return r0
+	})
+}
+
+func (f *FakeCallFieldsImportedFunc) nextHook() func(context.Context, *sync.Mutex) time.Time {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Imported")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsImportedFunc) appendCall(r0 FakeCallFieldsImportedFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsImportedFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsImportedFunc) History() []FakeCallFieldsImportedFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsImportedFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsImportedFuncCall is an object that describes an invocation
+// of method Imported on an instance of FakeCallFields.
+type FakeCallFieldsImportedFuncCall struct {
+	// Context is the value of the 1st argument
+	// passed to this method invocation.
+	Context context.Context
+	// Sync is the value of the 2nd argument
+	// passed to this method invocation.
+	Sync *sync.Mutex
+	// Time is the value of the 1st result
+	// returned from this method invocation.
+	Time time.Time
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsImportedFuncCall) Args() []any {
+	return []any{c.Context, c.Sync}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsImportedFuncCall) Results() []any {
+	return []any{c.Time}
+}
+
+// FakeCallFieldsMethodsFunc describes the behavior when the Methods method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsMethodsFunc struct {
+	defaultHook func(int, int)
+	hooks       []func(int, int)
+	history     []FakeCallFieldsMethodsFuncCall
+	mutex       sync.Mutex
+}
+
+// Methods delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Methods(v0 int, v1 int) {
+	m.MethodsFunc.nextHook()(v0, v1)
+	m.MethodsFunc.appendCall(FakeCallFieldsMethodsFuncCall{v0, v1})
+	return
+}
+
+// SetDefaultHook sets function that is called when the Methods method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsMethodsFunc) SetDefaultHook(hook func(int, int)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Methods method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsMethodsFunc) PushHook(hook func(int, int)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsMethodsFunc) SetDefaultReturn() {
+	f.SetDefaultHook(func(int, int) {
+		return
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsMethodsFunc) PushReturn() {
+	f.PushHook(func(int, int) {
+		return
+	})
+}
+
+func (f *FakeCallFieldsMethodsFunc) nextHook() func(int, int) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Methods")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsMethodsFunc) appendCall(r0 FakeCallFieldsMethodsFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsMethodsFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsMethodsFunc) History() []FakeCallFieldsMethodsFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsMethodsFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsMethodsFuncCall is an object that describes an invocation
+// of method Methods on an instance of FakeCallFields.
+type FakeCallFieldsMethodsFuncCall struct {
+	// ArgArgs is the value of the 1st argument
+	// passed to this method invocation.
+	ArgArgs int
+	// ArgResults is the value of the 2nd argument
+	// passed to this method invocation.
+	ArgResults int
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsMethodsFuncCall) Args() []any {
+	return []any{c.ArgArgs, c.ArgResults}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsMethodsFuncCall) Results() []any {
+	return []any{}
+}
+
+// FakeCallFieldsNamedFunc describes the behavior when the Named method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsNamedFunc struct {
+	defaultHook func(string, int) (int, error)
+	hooks       []func(string, int) (int, error)
+	history     []FakeCallFieldsNamedFuncCall
+	mutex       sync.Mutex
+}
+
+// Named delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Named(v0 string, v1 int) (int, error) {
+	r0, r1 := m.NamedFunc.nextHook()(v0, v1)
+	m.NamedFunc.appendCall(FakeCallFieldsNamedFuncCall{v0, v1, r0, r1})
+	return r0, r1
+}
+
+// SetDefaultHook sets function that is called when the Named method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsNamedFunc) SetDefaultHook(hook func(string, int) (int, error)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Named method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsNamedFunc) PushHook(hook func(string, int) (int, error)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsNamedFunc) SetDefaultReturn(r0 int, r1 error) {
+	f.SetDefaultHook(func(string, int) (int, error) {
+		return r0, r1
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsNamedFunc) PushReturn(r0 int, r1 error) {
+	f.PushHook(func(string, int) (int, error) {
+		return r0, r1
+	})
+}
+
+func (f *FakeCallFieldsNamedFunc) nextHook() func(string, int) (int, error) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Named")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsNamedFunc) appendCall(r0 FakeCallFieldsNamedFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsNamedFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsNamedFunc) History() []FakeCallFieldsNamedFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsNamedFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsNamedFuncCall is an object that describes an invocation
+// of method Named on an instance of FakeCallFields.
+type FakeCallFieldsNamedFuncCall struct {
+	// Name is the value of the 1st argument
+	// passed to this method invocation.
+	Name string
+	// Perm is the value of the 2nd argument
+	// passed to this method invocation.
+	Perm int
+	// Size is the value of the 1st result
+	// returned from this method invocation.
+	Size int
+	// Err is the value of the 2nd result
+	// returned from this method invocation.
+	Err error
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsNamedFuncCall) Args() []any {
+	return []any{c.Name, c.Perm}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsNamedFuncCall) Results() []any {
+	return []any{c.Size, c.Err}
+}
+
+// FakeCallFieldsNotExportedFunc describes the behavior when the NotExported method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsNotExportedFunc struct {
+	defaultHook func(int, int, int)
+	hooks       []func(int, int, int)
+	history     []FakeCallFieldsNotExportedFuncCall
+	mutex       sync.Mutex
+}
+
+// NotExported delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) NotExported(v0 int, v1 int, v2 int) {
+	m.NotExportedFunc.nextHook()(v0, v1, v2)
+	m.NotExportedFunc.appendCall(FakeCallFieldsNotExportedFuncCall{v0, v1, v2})
+	return
+}
+
+// SetDefaultHook sets function that is called when the NotExported method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsNotExportedFunc) SetDefaultHook(hook func(int, int, int)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the NotExported method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsNotExportedFunc) PushHook(hook func(int, int, int)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsNotExportedFunc) SetDefaultReturn() {
+	f.SetDefaultHook(func(int, int, int) {
+		return
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsNotExportedFunc) PushReturn() {
+	f.PushHook(func(int, int, int) {
+		return
+	})
+}
+
+func (f *FakeCallFieldsNotExportedFunc) nextHook() func(int, int, int) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.NotExported")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsNotExportedFunc) appendCall(r0 FakeCallFieldsNotExportedFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsNotExportedFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsNotExportedFunc) History() []FakeCallFieldsNotExportedFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsNotExportedFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsNotExportedFuncCall is an object that describes an invocation
+// of method NotExported on an instance of FakeCallFields.
+type FakeCallFieldsNotExportedFuncCall struct {
+	// Arg_x is the value of the 1st argument
+	// passed to this method invocation.
+	Arg_x int
+	// Arg名 is the value of the 2nd argument
+	// passed to this method invocation.
+	Arg名 int
+	// Ключ is the value of the 3rd argument
+	// passed to this method invocation.
+	Ключ int
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsNotExportedFuncCall) Args() []any {
+	return []any{c.Arg_x, c.Arg名, c.Ключ}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsNotExportedFuncCall) Results() []any {
+	return []any{}
+}
+
+// FakeCallFieldsNumberedFunc describes the behavior when the Numbered method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsNumberedFunc struct {
+	defaultHook func(int, int, int)
+	hooks       []func(int, int, int)
+	history     []FakeCallFieldsNumberedFuncCall
+	mutex       sync.Mutex
+}
+
+// Numbered delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Numbered(v0 int, v1 int, v2 int) {
+	m.NumberedFunc.nextHook()(v0, v1, v2)
+	m.NumberedFunc.appendCall(FakeCallFieldsNumberedFuncCall{v0, v1, v2})
+	return
+}
+
+// SetDefaultHook sets function that is called when the Numbered method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsNumberedFunc) SetDefaultHook(hook func(int, int, int)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Numbered method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsNumberedFunc) PushHook(hook func(int, int, int)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsNumberedFunc) SetDefaultReturn() {
+	f.SetDefaultHook(func(int, int, int) {
+		return
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsNumberedFunc) PushReturn() {
+	f.PushHook(func(int, int, int) {
+		return
+	})
+}
+
+func (f *FakeCallFieldsNumberedFunc) nextHook() func(int, int, int) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Numbered")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsNumberedFunc) appendCall(r0 FakeCallFieldsNumberedFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsNumberedFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsNumberedFunc) History() []FakeCallFieldsNumberedFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsNumberedFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsNumberedFuncCall is an object that describes an invocation
+// of method Numbered on an instance of FakeCallFields.
+type FakeCallFieldsNumberedFuncCall struct {
+	// X1 is the value of the 1st argument
+	// passed to this method invocation.
+	X1 int
+	// X is the value of the 2nd argument
+	// passed to this method invocation.
+	X int
+	// V2 is the value of the 3rd argument
+	// passed to this method invocation.
+	V2 int
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsNumberedFuncCall) Args() []any {
+	return []any{c.X1, c.X, c.V2}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsNumberedFuncCall) Results() []any {
+	return []any{}
+}
+
+// FakeCallFieldsPrefixedFunc describes the behavior when the Prefixed method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsPrefixedFunc struct {
+	defaultHook func(int, int, int) int
+	hooks       []func(int, int, int) int
+	history     []FakeCallFieldsPrefixedFuncCall
+	mutex       sync.Mutex
+}
+
+// Prefixed delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Prefixed(v0 int, v1 int, v2 int) int {
+	r0 := m.PrefixedFunc.nextHook()(v0, v1, v2)
+	m.PrefixedFunc.appendCall(FakeCallFieldsPrefixedFuncCall{v0, v1, v2, r0})
+	return r0
+}
+
+// SetDefaultHook sets function that is called when the Prefixed method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsPrefixedFunc) SetDefaultHook(hook func(int, int, int) int) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Prefixed method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsPrefixedFunc) PushHook(hook func(int, int, int) int) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsPrefixedFunc) SetDefaultReturn(r0 int) {
+	f.SetDefaultHook(func(int, int, int) int {
+		return r0
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsPrefixedFunc) PushReturn(r0 int) {
+	f.PushHook(func(int, int, int) int {
+		return r0
+	})
+}
+
+func (f *FakeCallFieldsPrefixedFunc) nextHook() func(int, int, int) int {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Prefixed")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsPrefixedFunc) appendCall(r0 FakeCallFieldsPrefixedFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsPrefixedFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsPrefixedFunc) History() []FakeCallFieldsPrefixedFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsPrefixedFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsPrefixedFuncCall is an object that describes an invocation
+// of method Prefixed on an instance of FakeCallFields.
+type FakeCallFieldsPrefixedFuncCall struct {
+	// X is the value of the 1st argument
+	// passed to this method invocation.
+	X int
+	// Arg0 is the value of the 2nd argument
+	// passed to this method invocation.
+	Arg0 int
+	// Result0 is the value of the 3rd argument
+	// passed to this method invocation.
+	Result0 int
+	// Arg1 is the value of the 1st result
+	// returned from this method invocation.
+	Arg1 int
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsPrefixedFuncCall) Args() []any {
+	return []any{c.X, c.Arg0, c.Result0}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsPrefixedFuncCall) Results() []any {
+	return []any{c.Arg1}
+}
+
+// FakeCallFieldsResultMethodsFunc describes the behavior when the ResultMethods method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsResultMethodsFunc struct {
+	defaultHook func() (int, int)
+	hooks       []func() (int, int)
+	history     []FakeCallFieldsResultMethodsFuncCall
+	mutex       sync.Mutex
+}
+
+// ResultMethods delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) ResultMethods() (int, int) {
+	r0, r1 := m.ResultMethodsFunc.nextHook()()
+	m.ResultMethodsFunc.appendCall(FakeCallFieldsResultMethodsFuncCall{r0, r1})
+	return r0, r1
+}
+
+// SetDefaultHook sets function that is called when the ResultMethods method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsResultMethodsFunc) SetDefaultHook(hook func() (int, int)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the ResultMethods method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsResultMethodsFunc) PushHook(hook func() (int, int)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsResultMethodsFunc) SetDefaultReturn(r0 int, r1 int) {
+	f.SetDefaultHook(func() (int, int) {
+		return r0, r1
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsResultMethodsFunc) PushReturn(r0 int, r1 int) {
+	f.PushHook(func() (int, int) {
+		return r0, r1
+	})
+}
+
+func (f *FakeCallFieldsResultMethodsFunc) nextHook() func() (int, int) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.ResultMethods")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsResultMethodsFunc) appendCall(r0 FakeCallFieldsResultMethodsFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsResultMethodsFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsResultMethodsFunc) History() []FakeCallFieldsResultMethodsFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsResultMethodsFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsResultMethodsFuncCall is an object that describes an invocation
+// of method ResultMethods on an instance of FakeCallFields.
+type FakeCallFieldsResultMethodsFuncCall struct {
+	// ResultArgs is the value of the 1st result
+	// returned from this method invocation.
+	ResultArgs int
+	// ResultResults is the value of the 2nd result
+	// returned from this method invocation.
+	ResultResults int
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsResultMethodsFuncCall) Args() []any {
+	return []any{}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsResultMethodsFuncCall) Results() []any {
+	return []any{c.ResultArgs, c.ResultResults}
+}
+
+// FakeCallFieldsSameCaseFunc describes the behavior when the SameCase method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsSameCaseFunc struct {
+	defaultHook func(int, int, int)
+	hooks       []func(int, int, int)
+	history     []FakeCallFieldsSameCaseFuncCall
+	mutex       sync.Mutex
+}
+
+// SameCase delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) SameCase(v0 int, v1 int, v2 int) {
+	m.SameCaseFunc.nextHook()(v0, v1, v2)
+	m.SameCaseFunc.appendCall(FakeCallFieldsSameCaseFuncCall{v0, v1, v2})
+	return
+}
+
+// SetDefaultHook sets function that is called when the SameCase method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsSameCaseFunc) SetDefaultHook(hook func(int, int, int)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the SameCase method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsSameCaseFunc) PushHook(hook func(int, int, int)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsSameCaseFunc) SetDefaultReturn() {
+	f.SetDefaultHook(func(int, int, int) {
+		return
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsSameCaseFunc) PushReturn() {
+	f.PushHook(func(int, int, int) {
+		return
+	})
+}
+
+func (f *FakeCallFieldsSameCaseFunc) nextHook() func(int, int, int) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.SameCase")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsSameCaseFunc) appendCall(r0 FakeCallFieldsSameCaseFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsSameCaseFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsSameCaseFunc) History() []FakeCallFieldsSameCaseFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsSameCaseFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsSameCaseFuncCall is an object that describes an invocation
+// of method SameCase on an instance of FakeCallFields.
+type FakeCallFieldsSameCaseFuncCall struct {
+	// Foo is the value of the 1st argument
+	// passed to this method invocation.
+	Foo int
+	// ArgFoo is the value of the 2nd argument
+	// passed to this method invocation.
+	ArgFoo int
+	// ArgArgFoo is the value of the 3rd argument
+	// passed to this method invocation.
+	ArgArgFoo int
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsSameCaseFuncCall) Args() []any {
+	return []any{c.Foo, c.ArgFoo, c.ArgArgFoo}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsSameCaseFuncCall) Results() []any {
+	return []any{}
+}
+
+// FakeCallFieldsShortFunc describes the behavior when the Short method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsShortFunc struct {
+	defaultHook func(string, int, func(), struct{}) (int, int)
+	hooks       []func(string, int, func(), struct{}) (int, int)
+	history     []FakeCallFieldsShortFuncCall
+	mutex       sync.Mutex
+}
+
+// Short delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Short(v0 string, v1 int, v2 func(), v3 struct{}) (int, int) {
+	r0, r1 := m.ShortFunc.nextHook()(v0, v1, v2, v3)
+	m.ShortFunc.appendCall(FakeCallFieldsShortFuncCall{v0, v1, v2, v3, r0, r1})
+	return r0, r1
+}
+
+// SetDefaultHook sets function that is called when the Short method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsShortFunc) SetDefaultHook(hook func(string, int, func(), struct{}) (int, int)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Short method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsShortFunc) PushHook(hook func(string, int, func(), struct{}) (int, int)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsShortFunc) SetDefaultReturn(r0 int, r1 int) {
+	f.SetDefaultHook(func(string, int, func(), struct{}) (int, int) {
+		return r0, r1
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsShortFunc) PushReturn(r0 int, r1 int) {
+	f.PushHook(func(string, int, func(), struct{}) (int, int) {
+		return r0, r1
+	})
+}
+
+func (f *FakeCallFieldsShortFunc) nextHook() func(string, int, func(), struct{}) (int, int) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Short")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsShortFunc) appendCall(r0 FakeCallFieldsShortFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsShortFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsShortFunc) History() []FakeCallFieldsShortFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsShortFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsShortFuncCall is an object that describes an invocation
+// of method Short on an instance of FakeCallFields.
+type FakeCallFieldsShortFuncCall struct {
+	// S is the value of the 1st argument
+	// passed to this method invocation.
+	S string
+	// N is the value of the 2nd argument
+	// passed to this method invocation.
+	N int
+	// Fn is the value of the 3rd argument
+	// passed to this method invocation.
+	Fn func()
+	// Val is the value of the 4th argument
+	// passed to this method invocation.
+	Val struct{}
+	// X is the value of the 1st result
+	// returned from this method invocation.
+	X int
+	// Y is the value of the 2nd result
+	// returned from this method invocation.
+	Y int
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+func (c FakeCallFieldsShortFuncCall) Args() []any {
+	return []any{c.S, c.N, c.Fn, c.Val}
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsShortFuncCall) Results() []any {
+	return []any{c.X, c.Y}
+}
+
+// FakeCallFieldsUnnamedFunc describes the behavior when the Unnamed method
+// of the parent FakeCallFields instance is invoked.
+type FakeCallFieldsUnnamedFunc struct {
+	defaultHook func(int, string, any, a.Thing, ...bool) (string, any, error)
+	hooks       []func(int, string, any, a.Thing, ...bool) (string, any, error)
+	history     []FakeCallFieldsUnnamedFuncCall
+	mutex       sync.Mutex
+}
+
+// Unnamed delegates to the next hook function in the queue
+// and stores the parameter and result values of this invocation.
+func (m *FakeCallFields) Unnamed(v0 int, v1 string, v2 any, v3 a.Thing, v4 ...bool) (string, any, error) {
+	r0, r1, r2 := m.UnnamedFunc.nextHook()(v0, v1, v2, v3, v4...)
+	m.UnnamedFunc.appendCall(FakeCallFieldsUnnamedFuncCall{v0, v1, v2, v3, v4, r0, r1, r2})
+	return r0, r1, r2
+}
+
+// SetDefaultHook sets function that is called when the Unnamed method
+// of the parent FakeCallFields instance is invoked and the hook queue is empty.
+func (f *FakeCallFieldsUnnamedFunc) SetDefaultHook(hook func(int, string, any, a.Thing, ...bool) (string, any, error)) {
+	f.defaultHook = hook
+}
+
+// PushHook adds a function to the end of hook queue.
+// Each invocation of the Unnamed method of the parent FakeCallFields instance
+// invokes the hook at the front of the queue and discards it.
+// After the queue is empty, the default hook function is invoked for any future action.
+func (f *FakeCallFieldsUnnamedFunc) PushHook(hook func(int, string, any, a.Thing, ...bool) (string, any, error)) {
+	f.mutex.Lock()
+	f.hooks = append(f.hooks, hook)
+	f.mutex.Unlock()
+}
+
+// SetDefaultReturn calls SetDefaultHook with a function that returns the given values.
+func (f *FakeCallFieldsUnnamedFunc) SetDefaultReturn(r0 string, r1 any, r2 error) {
+	f.SetDefaultHook(func(int, string, any, a.Thing, ...bool) (string, any, error) {
+		return r0, r1, r2
+	})
+}
+
+// PushReturn calls PushHook with a function that returns the given values.
+func (f *FakeCallFieldsUnnamedFunc) PushReturn(r0 string, r1 any, r2 error) {
+	f.PushHook(func(int, string, any, a.Thing, ...bool) (string, any, error) {
+		return r0, r1, r2
+	})
+}
+
+func (f *FakeCallFieldsUnnamedFunc) nextHook() func(int, string, any, a.Thing, ...bool) (string, any, error) {
+	f.mutex.Lock()
+	defer f.mutex.Unlock()
+
+	if len(f.hooks) == 0 {
+		if f.defaultHook == nil {
+			panic("unexpected invocation of FakeCallFields.Unnamed")
+		}
+		return f.defaultHook
+	}
+
+	hook := f.hooks[0]
+	f.hooks = f.hooks[1:]
+	return hook
+}
+
+func (f *FakeCallFieldsUnnamedFunc) appendCall(r0 FakeCallFieldsUnnamedFuncCall) {
+	f.mutex.Lock()
+	f.history = append(f.history, r0)
+	f.mutex.Unlock()
+}
+
+// History returns a sequence of FakeCallFieldsUnnamedFuncCall objects
+// describing the invocations of this function.
+func (f *FakeCallFieldsUnnamedFunc) History() []FakeCallFieldsUnnamedFuncCall {
+	f.mutex.Lock()
+	history := make([]FakeCallFieldsUnnamedFuncCall, len(f.history))
+	copy(history, f.history)
+	f.mutex.Unlock()
+
+	return history
+}
+
+// FakeCallFieldsUnnamedFuncCall is an object that describes an invocation
+// of method Unnamed on an instance of FakeCallFields.
+type FakeCallFieldsUnnamedFuncCall struct {
+	// N is the value of the 1st argument
+	// passed to this method invocation.
+	N int
+	// S is the value of the 2nd argument
+	// passed to this method invocation.
+	S string
+	// Any is the value of the 3rd argument
+	// passed to this method invocation.
+	Any any
+	// Thing is the value of the 4th argument
+	// passed to this method invocation.
+	Thing a.Thing
+	// Bools is a slice containing the values of the variadic arguments
+	// passed to this method invocation.
+	Bools []bool
+	// S1 is the value of the 1st result
+	// returned from this method invocation.
+	S1 string
+	// Any1 is the value of the 2nd result
+	// returned from this method invocation.
+	Any1 any
+	// Err is the value of the 3rd result
+	// returned from this method invocation.
+	Err error
+}
+
+// Args returns an interface slice containing the arguments of this invocation.
+// The variadic slice argument is flattened in this array such that
+// one positional argument and three variadic arguments
+// would result in a slice of four, not two.
+func (c FakeCallFieldsUnnamedFuncCall) Args() []any {
+	trailing := []any{}
+	for _, val := range c.Bools {
+		trailing = append(trailing, val)
+	}
+
+	return append([]any{c.N, c.S, c.Any, c.Thing}, trailing...)
+}
+
+// Results returns an interface slice containing the results of this invocation.
+func (c FakeCallFieldsUnnamedFuncCall) Results() []any {
+	return []any{c.S1, c.Any1, c.Err}
 }
 
 // FakeEmpty is a fake implementation of the Empty interface

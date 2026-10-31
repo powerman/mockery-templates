@@ -107,6 +107,31 @@ func New{{ $struct }}From{{ $tparams }}(i {{ $src }}{{ $iface.Name }}{{ $targs }
 {{- $call := printf "%s%sFuncCall" $struct $method.Name }}
 {{- $variadic := false }}
 {{- with $method.Params }}{{ $variadic = (index . (decr (len .))).Variadic }}{{ end }}
+{{- /* Fields of a call record: see "Call records" in doc.go. */ -}}
+{{- $vars := " " }}
+{{- range $method.Params }}{{ $vars = printf "%s%s " $vars (replaceAll "MoqParam" "" .Name) }}{{ end }}
+{{- range $method.Returns }}{{ $vars = printf "%s%s " $vars (replaceAll "MoqParam" "" .Name) }}{{ end }}
+{{- $taken := " Args Results " }}
+{{- range $prefix := split " " "Arg Result" }}
+	{{- $list := $method.Params }}
+	{{- if eq $prefix "Result" }}{{ $list = $method.Returns }}{{ end }}
+	{{- range $list }}
+		{{- $name := replaceAll "MoqParam" "" .Name }}
+		{{- $base := trimRight "0123456789" $name }}
+		{{- if and ($method.Scope.NameExists $base) (not (contains (printf " %s " $base) $vars)) }}
+			{{- $name = $base }}
+		{{- end }}
+		{{- $field := firstUpper $name }}
+		{{- if matchString `^[A-Za-z]` $name }}{{ $field = exported $name }}{{ end }}
+		{{- if not (matchString `^\p{Lu}` $field) }}{{ $field = printf "%s%s" $prefix $field }}{{ end }}
+		{{- range split " " $taken }}
+			{{- if contains (printf " %s " $field) $taken }}{{ $field = printf "%s%s" $prefix $field }}{{ end }}
+		{{- end }}
+		{{- $taken = printf "%s%s " $taken $field }}
+	{{- end }}
+{{- end }}
+{{- $fields := split " " (trimSpace (trimPrefix " Args Results " $taken)) }}
+{{- $results := len $method.Params }}
 
 // {{ $func }} describes the behavior when the {{ $method.Name }} method
 // of the parent {{ $struct }} instance is invoked.
@@ -200,18 +225,18 @@ type {{ $call }}{{ $tparams }} struct
 {{- if not (or $method.Params $method.Returns) }}{}{{ else }} {
 	{{- range $i, $p := $method.Params }}
 	{{- if $p.Variadic }}
-	// Arg{{ $i }} is a slice containing the values of the variadic arguments
+	// {{ index $fields $i }} is a slice containing the values of the variadic arguments
 	// passed to this method invocation.
 	{{- else }}
-	// Arg{{ $i }} is the value of the {{ template "ordinal" (incr $i) }} argument
+	// {{ index $fields $i }} is the value of the {{ template "ordinal" (incr $i) }} argument
 	// passed to this method invocation.
 	{{- end }}
-	Arg{{ $i }} {{ $p.TypeString }}
+	{{ index $fields $i }} {{ $p.TypeString }}
 	{{- end }}
 	{{- range $i, $r := $method.Returns }}
-	// Result{{ $i }} is the value of the {{ template "ordinal" (incr $i) }} result
+	// {{ index $fields (add $results $i) }} is the value of the {{ template "ordinal" (incr $i) }} result
 	// returned from this method invocation.
-	Result{{ $i }} {{ $r.TypeString }}
+	{{ index $fields (add $results $i) }} {{ $r.TypeString }}
 	{{- end }}
 }
 {{- end }}
@@ -225,13 +250,13 @@ type {{ $call }}{{ $tparams }} struct
 // would result in a slice of four, not two.
 func (c {{ $call }}{{ $targs }}) Args() []any {
 	trailing := []any{}
-	for _, val := range c.Arg{{ $last }} {
+	for _, val := range c.{{ index $fields $last }} {
 		trailing = append(trailing, val)
 	}
 
 	return append([]any{
 		{{- range $i, $p := $method.Params }}
-			{{- if lt $i $last }}{{ if $i }}, {{ end }}c.Arg{{ $i }}{{ end }}
+			{{- if lt $i $last }}{{ if $i }}, {{ end }}c.{{ index $fields $i }}{{ end }}
 		{{- end -}}
 	}, trailing...)
 }
@@ -240,7 +265,7 @@ func (c {{ $call }}{{ $targs }}) Args() []any {
 // Args returns an interface slice containing the arguments of this invocation.
 func (c {{ $call }}{{ $targs }}) Args() []any {
 	return []any{
-		{{- range $i, $p := $method.Params }}{{ if $i }}, {{ end }}c.Arg{{ $i }}{{ end -}}
+		{{- range $i, $p := $method.Params }}{{ if $i }}, {{ end }}c.{{ index $fields $i }}{{ end -}}
 	}
 }
 {{- end }}
@@ -248,7 +273,7 @@ func (c {{ $call }}{{ $targs }}) Args() []any {
 // Results returns an interface slice containing the results of this invocation.
 func (c {{ $call }}{{ $targs }}) Results() []any {
 	return []any{
-		{{- range $i, $r := $method.Returns }}{{ if $i }}, {{ end }}c.Result{{ $i }}{{ end -}}
+		{{- range $i, $r := $method.Returns }}{{ if $i }}, {{ end }}c.{{ index $fields (add $results $i) }}{{ end -}}
 	}
 }
 {{- end }}

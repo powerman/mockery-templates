@@ -136,31 +136,31 @@ func (f *FakeRepoGetFunc) History() []FakeRepoGetFuncCall {
 // FakeRepoGetFuncCall is an object that describes an invocation
 // of method Get on an instance of FakeRepo.
 type FakeRepoGetFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Ctx is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 Ctx
-	// Arg1 is the value of the 2nd argument
+	Ctx Ctx
+	// ID is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 int
-	// Result0 is the value of the 1st result
+	ID int
+	// S is the value of the 1st result
 	// returned from this method invocation.
-	Result0 string
-	// Result1 is the value of the 2nd result
+	S string
+	// B is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 bool
-	// Result2 is the value of the 3rd result
+	B bool
+	// Err is the value of the 3rd result
 	// returned from this method invocation.
-	Result2 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoGetFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.Ctx, c.ID}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeRepoGetFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1, c.Result2}
+	return []any{c.S, c.B, c.Err}
 }
 
 // FakeRepoInlineFunc describes the behavior when the Inline method
@@ -246,25 +246,25 @@ func (f *FakeRepoInlineFunc) History() []FakeRepoInlineFuncCall {
 // FakeRepoInlineFuncCall is an object that describes an invocation
 // of method Inline on an instance of FakeRepo.
 type FakeRepoInlineFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// S is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 struct{ X int }
-	// Arg1 is the value of the 2nd argument
+	S struct{ X int }
+	// I is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 interface{ Y() }
-	// Result0 is the value of the 1st result
+	I interface{ Y() }
+	// Val is the value of the 1st result
 	// returned from this method invocation.
-	Result0 struct{ X int }
+	Val struct{ X int }
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoInlineFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.S, c.I}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeRepoInlineFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Val}
 }
 
 // FakeRepoKindsFunc describes the behavior when the Kinds method
@@ -350,29 +350,29 @@ func (f *FakeRepoKindsFunc) History() []FakeRepoKindsFuncCall {
 // FakeRepoKindsFuncCall is an object that describes an invocation
 // of method Kinds on an instance of FakeRepo.
 type FakeRepoKindsFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// P is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 *int
-	// Arg1 is the value of the 2nd argument
+	P *int
+	// S is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 []string
-	// Arg2 is the value of the 3rd argument
+	S []string
+	// M is the value of the 3rd argument
 	// passed to this method invocation.
-	Arg2 map[string]int
-	// Arg3 is the value of the 4th argument
+	M map[string]int
+	// Arr is the value of the 4th argument
 	// passed to this method invocation.
-	Arg3 [4]byte
-	// Arg4 is the value of the 5th argument
+	Arr [4]byte
+	// Ch is the value of the 5th argument
 	// passed to this method invocation.
-	Arg4 <-chan int
-	// Arg5 is the value of the 6th argument
+	Ch <-chan int
+	// Fn is the value of the 6th argument
 	// passed to this method invocation.
-	Arg5 func(int) error
+	Fn func(int) error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoKindsFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1, c.Arg2, c.Arg3, c.Arg4, c.Arg5}
+	return []any{c.P, c.S, c.M, c.Arr, c.Ch, c.Fn}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -463,25 +463,25 @@ func (f *FakeRepoPutFunc) History() []FakeRepoPutFuncCall {
 // FakeRepoPutFuncCall is an object that describes an invocation
 // of method Put on an instance of FakeRepo.
 type FakeRepoPutFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Ctx is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 Ctx
-	// Arg1 is the value of the 2nd argument
+	Ctx Ctx
+	// S is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 string
-	// Result0 is the value of the 1st result
+	S string
+	// Err is the value of the 1st result
 	// returned from this method invocation.
-	Result0 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeRepoPutFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.Ctx, c.S}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeRepoPutFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Err}
 }
 
 // FakeVariadic is a fake implementation of the Variadic interface
@@ -597,18 +597,18 @@ func (f *FakeVariadicDoFunc) History() []FakeVariadicDoFuncCall {
 // FakeVariadicDoFuncCall is an object that describes an invocation
 // of method Do on an instance of FakeVariadic.
 type FakeVariadicDoFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Command is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 string
-	// Arg1 is a slice containing the values of the variadic arguments
+	Command string
+	// ArgArgs is a slice containing the values of the variadic arguments
 	// passed to this method invocation.
-	Arg1 []any
-	// Result0 is the value of the 1st result
+	ArgArgs []any
+	// Any is the value of the 1st result
 	// returned from this method invocation.
-	Result0 any
-	// Result1 is the value of the 2nd result
+	Any any
+	// Err is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
@@ -617,16 +617,16 @@ type FakeVariadicDoFuncCall struct {
 // would result in a slice of four, not two.
 func (c FakeVariadicDoFuncCall) Args() []any {
 	trailing := []any{}
-	for _, val := range c.Arg1 {
+	for _, val := range c.ArgArgs {
 		trailing = append(trailing, val)
 	}
 
-	return append([]any{c.Arg0}, trailing...)
+	return append([]any{c.Command}, trailing...)
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeVariadicDoFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1}
+	return []any{c.Any, c.Err}
 }
 
 // FakeVariadicOnlyFunc describes the behavior when the Only method
@@ -712,12 +712,12 @@ func (f *FakeVariadicOnlyFunc) History() []FakeVariadicOnlyFuncCall {
 // FakeVariadicOnlyFuncCall is an object that describes an invocation
 // of method Only on an instance of FakeVariadic.
 type FakeVariadicOnlyFuncCall struct {
-	// Arg0 is a slice containing the values of the variadic arguments
+	// Opts is a slice containing the values of the variadic arguments
 	// passed to this method invocation.
-	Arg0 []Option
-	// Result0 is the value of the 1st result
+	Opts []Option
+	// Err is the value of the 1st result
 	// returned from this method invocation.
-	Result0 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
@@ -726,7 +726,7 @@ type FakeVariadicOnlyFuncCall struct {
 // would result in a slice of four, not two.
 func (c FakeVariadicOnlyFuncCall) Args() []any {
 	trailing := []any{}
-	for _, val := range c.Arg0 {
+	for _, val := range c.Opts {
 		trailing = append(trailing, val)
 	}
 
@@ -735,7 +735,7 @@ func (c FakeVariadicOnlyFuncCall) Args() []any {
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeVariadicOnlyFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Err}
 }
 
 // FakeNoResults is a fake implementation of the NoResults interface
@@ -851,14 +851,14 @@ func (f *FakeNoResultsFireFunc) History() []FakeNoResultsFireFuncCall {
 // FakeNoResultsFireFuncCall is an object that describes an invocation
 // of method Fire on an instance of FakeNoResults.
 type FakeNoResultsFireFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 int
+	V int
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeNoResultsFireFuncCall) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -1067,49 +1067,49 @@ func (f *FakeCollideNamesFunc) History() []FakeCollideNamesFuncCall {
 // FakeCollideNamesFuncCall is an object that describes an invocation
 // of method Names on an instance of FakeCollide.
 type FakeCollideNamesFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// M is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 int
-	// Arg1 is the value of the 2nd argument
+	M int
+	// F is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 int
-	// Arg2 is the value of the 3rd argument
+	F int
+	// Hook is the value of the 3rd argument
 	// passed to this method invocation.
-	Arg2 int
-	// Arg3 is the value of the 4th argument
+	Hook int
+	// R0 is the value of the 4th argument
 	// passed to this method invocation.
-	Arg3 error
-	// Arg4 is the value of the 5th argument
+	R0 error
+	// V0 is the value of the 5th argument
 	// passed to this method invocation.
-	Arg4 string
-	// Arg5 is the value of the 6th argument
+	V0 string
+	// Mutex is the value of the 6th argument
 	// passed to this method invocation.
-	Arg5 *sync.Mutex
-	// Arg6 is the value of the 7th argument
+	Mutex *sync.Mutex
+	// History is the value of the 7th argument
 	// passed to this method invocation.
-	Arg6 []int
-	// Arg7 is the value of the 8th argument
+	History []int
+	// Sync is the value of the 8th argument
 	// passed to this method invocation.
-	Arg7 bool
-	// Arg8 is the value of the 9th argument
+	Sync bool
+	// I is the value of the 9th argument
 	// passed to this method invocation.
-	Arg8 any
-	// Result0 is the value of the 1st result
+	I any
+	// R1 is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
-	// Result1 is the value of the 2nd result
+	R1 int
+	// Err is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeCollideNamesFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1, c.Arg2, c.Arg3, c.Arg4, c.Arg5, c.Arg6, c.Arg7, c.Arg8}
+	return []any{c.M, c.F, c.Hook, c.R0, c.V0, c.Mutex, c.History, c.Sync, c.I}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeCollideNamesFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1}
+	return []any{c.R1, c.Err}
 }
 
 // FakeSwapper is a fake implementation of the Swapper interface
@@ -1219,22 +1219,22 @@ func (f *FakeSwapperSwapFunc) History() []FakeSwapperSwapFuncCall {
 // FakeSwapperSwapFuncCall is an object that describes an invocation
 // of method Swap on an instance of FakeSwapper.
 type FakeSwapperSwapFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// T is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 a.Thing
-	// Result0 is the value of the 1st result
+	T a.Thing
+	// Thing is the value of the 1st result
 	// returned from this method invocation.
-	Result0 b.Thing
+	Thing b.Thing
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeSwapperSwapFuncCall) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.T}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeSwapperSwapFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Thing}
 }
 
 // FakeReadCloser is a fake implementation of the ReadCloser interface
@@ -1350,9 +1350,9 @@ func (f *FakeReadCloserCloseFunc) History() []FakeReadCloserCloseFuncCall {
 // FakeReadCloserCloseFuncCall is an object that describes an invocation
 // of method Close on an instance of FakeReadCloser.
 type FakeReadCloserCloseFuncCall struct {
-	// Result0 is the value of the 1st result
+	// Err is the value of the 1st result
 	// returned from this method invocation.
-	Result0 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
@@ -1362,7 +1362,7 @@ func (c FakeReadCloserCloseFuncCall) Args() []any {
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeReadCloserCloseFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Err}
 }
 
 // FakeReadCloserReadFunc describes the behavior when the Read method
@@ -1448,25 +1448,25 @@ func (f *FakeReadCloserReadFunc) History() []FakeReadCloserReadFuncCall {
 // FakeReadCloserReadFuncCall is an object that describes an invocation
 // of method Read on an instance of FakeReadCloser.
 type FakeReadCloserReadFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// P is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 []byte
-	// Result0 is the value of the 1st result
+	P []byte
+	// N is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
-	// Result1 is the value of the 2nd result
+	N int
+	// Err is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeReadCloserReadFuncCall) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.P}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeReadCloserReadFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1}
+	return []any{c.N, c.Err}
 }
 
 // FakeI1 is a fake implementation of the I1 interface
@@ -1576,14 +1576,14 @@ func (f *FakeI1M1Func[T]) History() []FakeI1M1FuncCall[T] {
 // FakeI1M1FuncCall is an object that describes an invocation
 // of method M1 on an instance of FakeI1.
 type FakeI1M1FuncCall[T any] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T
+	V T
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI1M1FuncCall[T]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -1704,14 +1704,14 @@ func (f *FakeI2M1Func[T1, T2]) History() []FakeI2M1FuncCall[T1, T2] {
 // FakeI2M1FuncCall is an object that describes an invocation
 // of method M1 on an instance of FakeI2.
 type FakeI2M1FuncCall[T1 any, T2 any] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T1
+	V T1
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI2M1FuncCall[T1, T2]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
@@ -1802,22 +1802,22 @@ func (f *FakeI2M2Func[T1, T2]) History() []FakeI2M2FuncCall[T1, T2] {
 // FakeI2M2FuncCall is an object that describes an invocation
 // of method M2 on an instance of FakeI2.
 type FakeI2M2FuncCall[T1 any, T2 any] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T1
-	// Result0 is the value of the 1st result
+	V T1
+	// V1 is the value of the 1st result
 	// returned from this method invocation.
-	Result0 T2
+	V1 T2
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI2M2FuncCall[T1, T2]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeI2M2FuncCall[T1, T2]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.V1}
 }
 
 // FakeI3 is a fake implementation of the I3 interface
@@ -1927,22 +1927,22 @@ func (f *FakeI3M3Func[T]) History() []FakeI3M3FuncCall[T] {
 // FakeI3M3FuncCall is an object that describes an invocation
 // of method M3 on an instance of FakeI3.
 type FakeI3M3FuncCall[T SignedIntegerConstraint] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 I1[T]
-	// Result0 is the value of the 1st result
+	V I1[T]
+	// N is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
+	N int
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI3M3FuncCall[T]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeI3M3FuncCall[T]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.N}
 }
 
 // FakeI4 is a fake implementation of the I4 interface
@@ -2052,22 +2052,22 @@ func (f *FakeI4M4Func[T]) History() []FakeI4M4FuncCall[T] {
 // FakeI4M4FuncCall is an object that describes an invocation
 // of method M4 on an instance of FakeI4.
 type FakeI4M4FuncCall[T interface{ ~string }] struct {
-	// Arg0 is the value of the 1st argument
+	// V is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 I1[T]
-	// Result0 is the value of the 1st result
+	V I1[T]
+	// N is the value of the 1st result
 	// returned from this method invocation.
-	Result0 int
+	N int
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeI4M4FuncCall[T]) Args() []any {
-	return []any{c.Arg0}
+	return []any{c.V}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeI4M4FuncCall[T]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.N}
 }
 
 // FakeCmp is a fake implementation of the Cmp interface
@@ -2177,25 +2177,25 @@ func (f *FakeCmpEqFunc[T]) History() []FakeCmpEqFuncCall[T] {
 // FakeCmpEqFuncCall is an object that describes an invocation
 // of method Eq on an instance of FakeCmp.
 type FakeCmpEqFuncCall[T comparable] struct {
-	// Arg0 is the value of the 1st argument
+	// A is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 T
-	// Arg1 is the value of the 2nd argument
+	A T
+	// B is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 T
-	// Result0 is the value of the 1st result
+	B T
+	// ResultB is the value of the 1st result
 	// returned from this method invocation.
-	Result0 bool
+	ResultB bool
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeCmpEqFuncCall[T]) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.A, c.B}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeCmpEqFuncCall[T]) Results() []any {
-	return []any{c.Result0}
+	return []any{c.ResultB}
 }
 
 // FakeEmpty is a fake implementation of the Empty interface
@@ -2321,9 +2321,9 @@ func (f *FakeUnexportedStringFunc) History() []FakeUnexportedStringFuncCall {
 // FakeUnexportedStringFuncCall is an object that describes an invocation
 // of method String on an instance of FakeUnexported.
 type FakeUnexportedStringFuncCall struct {
-	// Result0 is the value of the 1st result
+	// S is the value of the 1st result
 	// returned from this method invocation.
-	Result0 string
+	S string
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
@@ -2333,5 +2333,5 @@ func (c FakeUnexportedStringFuncCall) Args() []any {
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeUnexportedStringFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.S}
 }

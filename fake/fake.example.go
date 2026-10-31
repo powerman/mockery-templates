@@ -122,28 +122,28 @@ func (f *FakeStoreGetFunc) History() []FakeStoreGetFuncCall {
 // FakeStoreGetFuncCall is an object that describes an invocation
 // of method Get on an instance of FakeStore.
 type FakeStoreGetFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Ctx is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 context.Context
-	// Arg1 is the value of the 2nd argument
+	Ctx context.Context
+	// Key is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 string
-	// Result0 is the value of the 1st result
+	Key string
+	// S is the value of the 1st result
 	// returned from this method invocation.
-	Result0 string
-	// Result1 is the value of the 2nd result
+	S string
+	// Err is the value of the 2nd result
 	// returned from this method invocation.
-	Result1 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeStoreGetFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1}
+	return []any{c.Ctx, c.Key}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeStoreGetFuncCall) Results() []any {
-	return []any{c.Result0, c.Result1}
+	return []any{c.S, c.Err}
 }
 
 // FakeStoreSetFunc describes the behavior when the Set method
@@ -229,26 +229,26 @@ func (f *FakeStoreSetFunc) History() []FakeStoreSetFuncCall {
 // FakeStoreSetFuncCall is an object that describes an invocation
 // of method Set on an instance of FakeStore.
 type FakeStoreSetFuncCall struct {
-	// Arg0 is the value of the 1st argument
+	// Ctx is the value of the 1st argument
 	// passed to this method invocation.
-	Arg0 context.Context
-	// Arg1 is the value of the 2nd argument
+	Ctx context.Context
+	// Key is the value of the 2nd argument
 	// passed to this method invocation.
-	Arg1 string
-	// Arg2 is the value of the 3rd argument
+	Key string
+	// Value is the value of the 3rd argument
 	// passed to this method invocation.
-	Arg2 string
-	// Result0 is the value of the 1st result
+	Value string
+	// Err is the value of the 1st result
 	// returned from this method invocation.
-	Result0 error
+	Err error
 }
 
 // Args returns an interface slice containing the arguments of this invocation.
 func (c FakeStoreSetFuncCall) Args() []any {
-	return []any{c.Arg0, c.Arg1, c.Arg2}
+	return []any{c.Ctx, c.Key, c.Value}
 }
 
 // Results returns an interface slice containing the results of this invocation.
 func (c FakeStoreSetFuncCall) Results() []any {
-	return []any{c.Result0}
+	return []any{c.Err}
 }
